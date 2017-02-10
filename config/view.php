@@ -13,9 +13,10 @@ return [
     |
     */
 
-    'paths' => [
+    /*'paths' => [
         realpath(base_path('resources/views')),
-    ],
+    ], */
+    'paths' => array(__DIR__.'/../../public/views'),
 
     /*
     |--------------------------------------------------------------------------
