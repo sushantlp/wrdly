@@ -52,10 +52,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="./src/sign">Sign up</a>
+                        <a class="page-scroll" href="./src">Sign up</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="./src/login">Login in</a>
+                        <a class="page-scroll" href="./src">Login in</a>
                     </li>
                 </ul>
             </div>
@@ -70,7 +70,7 @@
                 <h1 id="homeHeading">Your Favorite Source of Free Bootstrap Themes</h1>
                 <hr>
                 <p>Start Bootstrap can help you build better websites using the Bootstrap CSS framework! Just download your template and start going, no strings attached!</p>
-                <a href="./src/sign" class="btn btn-primary btn-xl page-scroll">Join wrldy</a>
+                <a href="./src" class="btn btn-primary btn-xl page-scroll">Join wrldy</a>
             </div>
         </div>
     </header>
