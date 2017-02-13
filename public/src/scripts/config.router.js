@@ -21,5 +21,26 @@ angular.module('wrdly')
      templateUrl: 'src/template/signin.html',
      controller: 'LoginController',
      controllerAs: 'loginCtrl',
-   });
+    })
+
+   .state('signup', {
+   url: '/signup',
+   templateUrl: 'src/template/signup.html',
+   controller: 'SignUpController',
+   controllerAs: 'signupCtrl',
+ })
+
+ .state('lockme', {
+ url: '/lockme',
+ templateUrl: 'src/template/lockme.html',
+ controller: 'LockMeController',
+ controllerAs: 'lockmeCtrl',
+})
+
+ .state('forgot-password', {
+ url: '/forgot-password',
+ templateUrl: 'src/template/forgot-password.html',
+ controller: 'ForgotPasswordController',
+ controllerAs: 'forgotCtrl',
+});
  };
