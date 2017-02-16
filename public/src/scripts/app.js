@@ -1,4 +1,3 @@
-(function() {
 
     'use strict';
 
@@ -22,4 +21,4 @@
         'oc.lazyLoad',
         'angular-loading-bar',
     ]);
-})();
+
