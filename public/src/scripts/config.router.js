@@ -1,46 +1,43 @@
-'use strict';
+(function(){
 
-/**
- * @ngdoc function
- * @name app.config:uiRouter
- * @description
- * # Config
- * Config for the router
- */
-angular.module('wrdly')
-.config(routeConfig);
+    'use strict';
 
- routeConfig.$inject = ['$stateProvider','$urlRouterProvider'];
+    angular.module('wrdly')
+    .config(routeConfig);
 
- function routeConfig ($stateProvider,$urlRouterProvider) {
-     $urlRouterProvider.otherwise('/signin');
+    routeConfig.$inject = ['$stateProvider','$urlRouterProvider'];
 
-     $stateProvider
-     .state('signin', {
-     url: '/signin',
-     templateUrl: 'src/template/signin.html',
-     controller: 'LoginController',
-     controllerAs: 'loginCtrl',
-    })
+    function routeConfig ($stateProvider,$urlRouterProvider) {
 
-   .state('signup', {
-   url: '/signup',
-   templateUrl: 'src/template/signup.html',
-   controller: 'SignUpController',
-   controllerAs: 'signupCtrl',
- })
+        $urlRouterProvider.otherwise('/signin');
 
- .state('lockme', {
- url: '/lockme',
- templateUrl: 'src/template/lockme.html',
- controller: 'LockMeController',
- controllerAs: 'lockmeCtrl',
-})
+        $stateProvider
+            .state('signin', {
+                url: '/signin',
+                templateUrl: 'src/template/signin.html',
+                controller: 'LoginController',
+                controllerAs: 'loginCtrl',
+            })
 
- .state('forgot-password', {
- url: '/forgot-password',
- templateUrl: 'src/template/forgot-password.html',
- controller: 'ForgotPasswordController',
- controllerAs: 'forgotCtrl',
-});
- };
+            .state('signup', {
+                url: '/signup',
+                templateUrl: 'src/template/signup.html',
+                controller: 'SignUpController',
+                controllerAs: 'signupCtrl',
+            })
+
+            .state('lockme', {
+                url: '/lockme',
+                templateUrl: 'src/template/lockme.html',
+                controller: 'LockMeController',
+                controllerAs: 'lockmeCtrl',
+            })
+
+            .state('forgot-password', {
+                url: '/forgot-password',
+                templateUrl: 'src/template/forgot-password.html',
+                controller: 'ForgotPasswordController',
+                controllerAs: 'forgotCtrl',
+            });
+    };
+})();

@@ -1,4 +1,4 @@
-<div class="center-block w-xxl w-auto-xs p-v-md" ng-controller="SignUpController">
+<div class="center-block w-xxl w-auto-xs p-v-md" ng-controller="SignUpController as signupCtrl">
   <div class="navbar">
     <div class="navbar-brand m-t-lg text-center">
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" style="
@@ -18,23 +18,26 @@
     </div>
     <form name="form">
       <div class="md-form-group">
-        <input type="text" class="md-input" ng-model="user.name" required>
+        <input type="text" class="md-input" ng-model="signupCtrl.userName" required>
         <label>Name</label>
       </div>
       <div class="md-form-group">
-        <input type="email" class="md-input" ng-model="user.email" required>
+        <input type="email" class="md-input" ng-model="signupCtrl.email" required>
         <label>Email</label>
       </div>
       <div class="md-form-group">
-        <input type="password" class="md-input" ng-model="user.password" required>
+        <input type="password" class="md-input" ng-model="signupCtrl.password" required>
         <label>Password</label>
       </div>
+    <!--  <div class="md-form-group">
+          <div id="html_element"></div>
+      </div> -->
       <div class="m-b-md">
         <label class="md-check">
           <input type="checkbox" ng-model="agree" required><i class="indigo"></i> Agree the <a href>terms and policy</a>
         </label>
       </div>
-      <button md-ink-ripple type="submit" class="md-btn md-raised pink btn-block p-h-md">Sign up</button>
+      <button md-ink-ripple type="submit" ng-click="signupCtrl.submitFunction()" class="md-btn md-raised pink btn-block p-h-md">Sign up</button>
     </form>
   </div>
 
@@ -42,3 +45,12 @@
     <div>Already have an account? <button ui-sref="signin" class="md-btn">Sign in</button></div>
   </div>
 </div>
+
+<!--<script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+           'sitekey' : '6LdVFhQUAAAAAM0ClxcrjCp9AH8A-j616UDonvvE'
+        });
+    };
+  </script>
+<script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit'></script>
