@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class SignupController extends ApiController
 {
     // Merchant App Verify
-    public function merchantAppSignup(Request $request) {
-      if(($request->isMethod('get') && $request->has('mobile'))) {
+    public function signup(Request $request) {
+      if(($request->isMethod('get'))) {
           $v = new SignupValidation();
           $validate = $v->validateMerchantApp($request);
           $mobile = $request->input('mobile');

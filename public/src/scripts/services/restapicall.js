@@ -1,20 +1,22 @@
-//(function () {
+(function () {
     'use strict';
 
     angular.module('wrdly')
-    //.constant('APIBASEPATH', "https://ide.c9.io/sushantlp/wrdly")
-    .factory('RestfullApi',['$q', '$http', function($q, $http) {
+    .constant('APIBASEPATHCLOUD', "https://ide.c9.io/sushantlp/wrdly")
+    .constant('APIBASEPATHLOCAL', "http://127.0.0.1:8000")
+    .factory('RestfullApi',['$q', '$http', 'APIBASEPATHCLOUD', 'APIBASEPATHLOCAL', function($q, $http, APIBASEPATHCLOUD, APIBASEPATHLOCAL) {
 
 
 
         var RestfullApi = function(url) {
-            this.url = url;
+            this.relativePath = url;
+            this.basePath = APIBASEPATHLOCAL;
         }
 
         RestfullApi.prototype.callSignupApi = function (name,email,password) {
             var response = $http({
                 method: "POST",
-                url: this.url,
+                url: this.basePath + this.relativePath,
                 params: {
                     user_name:name,
                     user_email:email,
@@ -27,4 +29,4 @@
 
         return RestfullApi;
     }]);
-//})();
+})();

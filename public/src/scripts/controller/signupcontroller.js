@@ -15,8 +15,8 @@
             var password = signupCtrl.password;
 
             var apiCall = new RestfullApi();
-            apiCall.callSignupApi(userName,email,password);
-            apiCall.then(function (response) {
+            var promise = apiCall.callSignupApi(userName,email,password);
+            promise.then(function (response) {
                 console.log(response.data);
             })
             .catch(function (error) {
