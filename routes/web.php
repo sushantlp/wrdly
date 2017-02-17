@@ -12,6 +12,13 @@
 */
 
 Route::get('/', function () {
-    //return view('index');
     return View::make('index');
+});
+
+Route::group(['prefix' => 'api/v1'],function() {
+    Route::group(['prefix' => '/user'],function() {
+        Route::post('/signup','SignupController@signup');
+        Route::get('/emailverifiy','SignupController@emailVerifiy');
+        Route::post('/login','SignupController@userLogin');
+    });
 });

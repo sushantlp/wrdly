@@ -16,6 +16,7 @@ class CreateQuotesTable extends Migration
         Schema::create('quotes', function (Blueprint $table) {
             $table->increments('quote_id');
             $table->text('quote_of_day');
+            $table->string('writer_name')->default('Anonymous');
             $table->integer('day_id');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();

@@ -49,6 +49,16 @@ class ApiController extends CommonLogicController
      ]);
  }
 
+ // Send 
+  public function respondWithMessage($message){
+      return $this->respond([
+          'wrdly_success' => [
+              'wrdly' => $message,
+              'code' => 666,
+          ]
+      ]);
+  }
+
 // Encode in Json
  public function respond($data){
      return json_encode($data);
