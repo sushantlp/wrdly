@@ -40,7 +40,7 @@ class ApiController extends CommonLogicController
  }
 
 // Send Success Message
- public function respondWithMessage($message){
+ public function respondWithSuccess($message){
      return $this->respond([
          'wrdly_success' => [
              'wrdly' => $message,
@@ -49,12 +49,12 @@ class ApiController extends CommonLogicController
      ]);
  }
 
- // Send 
+ // Send
   public function respondWithMessage($message){
       return $this->respond([
-          'wrdly_success' => [
+          'wrdly_half_success' => [
               'wrdly' => $message,
-              'code' => 666,
+              'code' => 777,
           ]
       ]);
   }

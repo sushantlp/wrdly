@@ -17,8 +17,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'api/v1'],function() {
     Route::group(['prefix' => '/user'],function() {
-        Route::post('/signup','SignupController@signup');
-        Route::get('/emailverifiy','SignupController@emailVerifiy');
-        Route::post('/login','SignupController@userLogin');
+        Route::post('/signup','IdentifyController@signup');
+        Route::get('/emailverifiy','IdentifyController@emailVerifiy');
+        Route::post('/login','IdentifyController@userLogin');
     });
 });

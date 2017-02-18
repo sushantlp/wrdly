@@ -38,7 +38,7 @@ class EmailVerification extends Model
             if($response) {
                 return $response;
             } else {
-                return $this->respondWithError("Wrong code verification fail!");
+                return $this->respondWithMessage("Wrong code verification fail!");
             }
         } catch(\Exception $e) {
 
