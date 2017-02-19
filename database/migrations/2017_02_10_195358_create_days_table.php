@@ -14,6 +14,7 @@ class CreateDaysTable extends Migration
     public function up()
     {
         Schema::create('days', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('day_id');
             $table->string('day');
             $table->tinyInteger('status')->default(1);

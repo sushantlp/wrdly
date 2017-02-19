@@ -14,6 +14,7 @@ class CreateHabitantsTable extends Migration
     public function up()
     {
         Schema::create('habitants', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('habitant_id');
             $table->integer('user_id');
             $table->string('state')->nullable();

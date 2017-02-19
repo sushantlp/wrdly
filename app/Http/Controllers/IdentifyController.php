@@ -6,17 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\ValidatorController;
 use App\EmailVerification;
+use App\Jobs\SendEmail;
 
 class IdentifyController extends ApiController
 {
     // Variable Declaration
-    protected $emailObject;
     protected $validation ;
+    protected $emailObject;
 
-    // Constructor Function
-    public function __construct(EmailVerification $emailObject,ValidatorController $validation) {
-        $this->emailObject = $emailObject;
+    // Constructor Function Create Object
+    public function __construct(ValidatorController $validation,EmailVerification $emailObject) {
         $this->validation = $validation;
+        $this->emailObject = $emailObject;
     }
 
     // User Signup
@@ -37,6 +38,12 @@ class IdentifyController extends ApiController
           $password = $request->input('password');
           $rollId = 1;
 
+          // Check User Already Registered
+          $check = $this->getUserDetailByEmail($email);
+          if(is_object($check)) {
+              return $this->respondWithMessage("You already signup! please login");
+          }
+
           // Insert User Detail in User Table
           $insertUser = $this->insertUserDetail($name,$email,$password,null,$rollId);
           if(!is_numeric($insertUser)) {
@@ -44,9 +51,15 @@ class IdentifyController extends ApiController
           }
 
           // Generate Otp Code
-          $code = $this->generateCode();
+          $code = $this->generateCode(5);
           if(!is_numeric($code)) {
               return $code;
+          }
+
+          // Disable Previous Email Otp
+          $disable = $this->emailObject->disableEmailOtp($email);
+          if(!is_numeric($disable)) {
+              return $disable;
           }
 
           // Insert Email Otp Code
@@ -59,15 +72,16 @@ class IdentifyController extends ApiController
           $arr = array();
           $arr['code'] = $code;
           $arr['email'] = $email;
-          $template = 'mail.blade.php';
+          $template = 'mail';
           $subject = 'Welcome to the Wrdly be Creative!';
           $sendEmail = $this->sendEmail($arr,$template,$email,$subject);
+
 
           if(!is_numeric($sendEmail)) {
               return $sendEmail;
           }
 
-          return $this-respondWithSuccess("Successful");
+          return $this->respondWithSuccess("Successful");
       } else {
           return $this->respondWithError("Not a good api call");
       }
@@ -86,13 +100,24 @@ class IdentifyController extends ApiController
                 return $check;
             }
 
+            // Check Email Code Status
+            $watch = $this->emailObject->checkEmailCodeStatus($email,$code);
+            if(!is_object($watch)) {
+                return $this->respondWithMessage("You already verify your account! please login");
+            }
+
             // Deactivate Email Verification Code Status
-            $turnOff = $this->deactivateEmailCodeStatus($email,$code);
-            if(!is_numeric) {
+            $turnOff = $this->emailObject->deactivateEmailCodeStatus($email,$code);
+            if(!is_numeric($turnOff)) {
                 return $turnOff;
             }
 
-            return $this-respondWithSuccess("Successful verification");
+            $turnOn = $this->activateUserAccount($email);
+            if(!is_numeric($turnOn)) {
+                return $turnOn;
+            }
+
+            return $this->respondWithSuccess("Successful verification");
         } else {
             return $this->respondWithError("Not a good api call");
         }
@@ -100,7 +125,7 @@ class IdentifyController extends ApiController
 
     // User Login Request
     public function userLogin(Request $request) {
-        if($request->isMethod('get') && $request->has('password') && $request->has('email')) {
+        if($request->isMethod('post') && $request->has('password') && $request->has('email')) {
             $email = $request->input('email');
             $password = $request->input('password');
             $arr = array();
@@ -120,7 +145,7 @@ class IdentifyController extends ApiController
             }
 
             // Generate JWT Token
-            $token = $this->generateToken($verify);
+            $token = $this->generateToken($verify,$verify->role_id);
             if(is_string($token)) {
                 return $token;
             }
@@ -129,14 +154,14 @@ class IdentifyController extends ApiController
             $arr['User_Name'] = $verify->name;
             $arr['User_Mobile'] = $verify->mobile;
             $arr['User_Email'] = $verify->email;
-            $arr['Role'] = $verify->role_id;
             $arr['Active'] = $verify->status;
             $arr['Token'] = $token;
 
             return $arr;
 
         } else {
-        }
             return $this->respondWithError("Not a good api call");
+        }
     }
+
 }

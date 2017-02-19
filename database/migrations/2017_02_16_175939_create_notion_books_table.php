@@ -14,6 +14,7 @@ class CreateNotionBooksTable extends Migration
     public function up()
     {
         Schema::create('notion_books', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('book_id');
             $table->integer('thought_id');
             $table->integer('habitant_id');

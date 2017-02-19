@@ -3,12 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ApiController;
+use App\ErrorLog;
 
 class EmailVerification extends Model
 {
     protected $table = 'email_verifications';
     protected $primaryKey='email_verify_id';
     protected $fillable = ['email','status','email_verify_code'];
+
+    // Variable Declaration
+    protected $api;
+
+    // Constructor Function Create Object
+    public function __construct() {
+        $this->api = new ApiController;
+    }
 
      // Insert Email Otp Code
     public function insertEmailOtp($email,$code) {
@@ -22,9 +33,9 @@ class EmailVerification extends Model
         } catch(\Exception $e) {
 
             // Insert Error Log
-            $errorObject->errorLog("Exception Insert Email Otp Code",$e);
+            $this->api->errorLog("Exception Insert Email Otp Code",$e->getMessage());
 
-            return $this->respondWithError("Oops some technical problem");
+            return $this->api->respondWithError("Oops some technical problem");
         }
     }
 
@@ -43,9 +54,9 @@ class EmailVerification extends Model
         } catch(\Exception $e) {
 
             // Insert Error Log
-            $errorObject->errorLog("Exception Email Verification Code",$e);
+            $this->api->errorLog("Exception Email Verification Code",$e->getMessage());
 
-            return $this->respondWithError("Oops some technical problem");
+            return $this->api->respondWithError("Oops some technical problem");
         }
     }
 
@@ -61,9 +72,45 @@ class EmailVerification extends Model
         } catch(\Exception $e) {
 
             // Insert Error Log
-            $errorObject->errorLog("Exception Deactivate Verification Code Status",$e);
+            $this->api->errorLog("Exception Deactivate Verification Code Status",$e->getMessage());
 
-            return $this->respondWithError("Oops some technical problem");
+            return $this->api->respondWithError("Oops some technical problem");
+        }
+    }
+
+    // Disable Previous Email Otp
+    public function disableEmailOtp($email) {
+        try {
+            DB::table('email_verifications')
+            ->where('email',$email)
+            ->update(['status' => 0]);
+
+            return 1;
+        } catch(\Exception $e) {
+
+            // Insert Error Log
+            $this->api->errorLog("Disable Email Otp",$e->getMessage());
+
+            return $this->api->respondWithError("Oops some technical problem");
+        }
+    }
+
+    // Check Email Code Status
+    public function checkEmailCodeStatus($email,$code) {
+        try {
+            $check = DB::table('email_verifications')
+                     ->where('email',$email)
+                     ->where('email_verify_code',$code)
+                     ->where('status',1)
+                     ->first();
+
+            return $check;
+        } catch(\Exception $e) {
+
+            // Insert Error Log
+            $this->api->errorLog("Check Email Code Status",$e->getMessage());
+
+            return $this->api->respondWithError("Oops some technical problem");
         }
     }
 }

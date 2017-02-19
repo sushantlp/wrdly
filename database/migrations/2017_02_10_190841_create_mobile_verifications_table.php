@@ -14,6 +14,7 @@ class CreateMobileVerificationsTable extends Migration
     public function up()
     {
         Schema::create('mobile_verifications', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('mobile_verify_id');
             $table->string('mobile');
             $table->string('mobile_verify_code');

@@ -14,8 +14,9 @@ class CreateErrorLogsTable extends Migration
     public function up()
     {
         Schema::create('error_logs', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('error_id');
-            $table->string('location')->nullable();
+            $table->text('location')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -14,6 +14,7 @@ class CreateEmailVerificationsTable extends Migration
     public function up()
     {
         Schema::create('email_verifications', function (Blueprint $table) {
+          $table->engine = 'InnoDB';
           $table->increments('email_verify_id');
           $table->string('email');
           $table->string('email_verify_code');

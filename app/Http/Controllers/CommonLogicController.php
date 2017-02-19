@@ -5,17 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuthExceptions\JWTException;
 use App\User;
 use App\ErrorLog;
 use App\Jobs\SendEmail;
 
-class CommonLogicController extends Controller
+class CommonLogicController extends ErrorLog
 {
-    // Create  Model Object
-    protected $errorObject; //= new ErrorLog();
 
-    public function __construct(ErrorLog $errorObject) {
-        $this->errorObject = $errorObject;
+    // Constructor Function Create Object
+    public function __construct() {
+
     }
 
 
@@ -35,7 +36,7 @@ class CommonLogicController extends Controller
         } catch(\Exception $e) {
 
             // Insert Error Log
-            $this->errorObject->errorLog("Exception Insert User Detail",$e->getMessage());
+            $this->errorLog("Exception Insert User Detail",$e->getMessage());
 
             return $this->respondWithError("Oops some technical problem");
         }
@@ -54,7 +55,7 @@ class CommonLogicController extends Controller
         } catch(\Exception $e) {
 
             // Insert Error Log
-            $this->errorObject->errorLog("Exception Generate Code",$e);
+            $this->errorLog("Exception Generate Code",$e->getMessage());
 
             return $this->respondWithError("Oops some technical problem");
         }
@@ -63,12 +64,12 @@ class CommonLogicController extends Controller
     // Mail Send Jobs
     public function sendEmail($proxy,$template,$email,$msg) {
         try {
-            $this->dispatch(new SendEmail($proxy,$template,$email,$msg));
+            dispatch(new SendEmail($proxy,$template,$email,$msg));
             return 1;
         } catch(\Exception $e) {
-            var_dump($e);
+
             // Insert Error Log
-            $this->errorObject->errorLog("Exception Mail Send",$e);
+            $this->errorLog("Exception Mail Send",$e->getMessage());
 
             return $this->respondWithError("Oops some technical problem");
         }
@@ -100,7 +101,7 @@ class CommonLogicController extends Controller
         } catch(\Exception $e) {
 
             // Insert Error Log
-            $this->errorObject->errorLog("Exception User Credential Verify",$e);
+            $this->errorLog("Exception User Credential Verify",$e->getMessage());
 
             return $this->respondWithError("Oops some technical problem");
         }
@@ -120,21 +121,24 @@ class CommonLogicController extends Controller
         } catch(\Exception $e) {
 
             // Insert Error Log
-            $this->errorObject->errorLog("Exception Get User Information By Email",$e);
+            $this->errorLog("Exception Get User Information By Email",$e->getMessage());
 
             return $this->respondWithError("Oops some technical problem");
         }
     }
 
     // JWT Token Without Request
-   public function generateToken($credential) {
+   public function generateToken($credential,$role) {
        try {
+           $arr = array();
            $token = JWTAuth::fromUser($credential);
-           return $token;
+           $arr['Token'] = $token;
+           $arr['Role'] = $role;
+           return $arr;
        } catch(JWTException $e) {
 
            // Insert Log Information
-           $this->errorObject->errorLog('Exception Generate Token',$e->getMessage());
+           $this->errorLog('Exception Generate Token',$e->getMessage());
 
            // something went wrong
            if($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
@@ -147,4 +151,32 @@ class CommonLogicController extends Controller
        }
    }
 
+   // Activate User Account
+   public function activateUserAccount($email) {
+       try {
+
+           // Call Indian Time Zone
+           $timeZone = $this->indiaTimeZone();
+
+           DB::table('users')
+           ->where('email',$email)
+           ->update(['email_active' => 1, 'status' => 1, 'updated_at' => $timeZone]);
+
+           return 1;
+       } catch(\Exception $e) {
+
+           // Insert Error Log
+           $this->errorLog("Exception Activate User Account",$e->getMessage());
+
+           return $this->respondWithError("Oops some technical problem");
+       }
+   }
+
+   // Get India Time And Date
+   public function indiaTimeZone() {
+       date_default_timezone_set("Asia/Kolkata");
+       $todayDateTime = new \DateTime();
+       $todayDate = $todayDateTime->format('Y:m:d H:i:s');
+       return $todayDate;
+   }
 }

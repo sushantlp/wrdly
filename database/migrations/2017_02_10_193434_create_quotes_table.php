@@ -14,6 +14,7 @@ class CreateQuotesTable extends Migration
     public function up()
     {
         Schema::create('quotes', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('quote_id');
             $table->text('quote_of_day');
             $table->string('writer_name')->default('Anonymous');
