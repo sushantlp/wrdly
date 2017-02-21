@@ -160,7 +160,7 @@ class CommonLogicController extends ErrorLog
 
            DB::table('users')
            ->where('email',$email)
-           ->update(['email_active' => 1, 'status' => 1, 'updated_at' => $timeZone]);
+           ->update(['email_active' => 1 ,'status' => 1 ,'updated_at' => $timeZone]);
 
            return 1;
        } catch(\Exception $e) {
@@ -178,5 +178,33 @@ class CommonLogicController extends ErrorLog
        $todayDateTime = new \DateTime();
        $todayDate = $todayDateTime->format('Y:m:d H:i:s');
        return $todayDate;
+   }
+
+   // Put User Email in Session
+   public function loginSession($request,$email) {
+       // Via a request instance...
+       $request->session()->put('email', $email);
+       return true;
+   }
+
+   // Update User Detail
+   public function updateUserDetail($name,$mobile,$email) {
+       try {
+
+           // Call Indian Time Zone
+           $timeZone = $this->indiaTimeZone();
+
+           DB::table('users')
+           ->where('email',$email)
+           ->update(['name' => $name ,'mobile' => $mobile ,'updated_at' => $timeZone]);
+
+           return 1;
+       } catch(\Exception $e) {
+
+           // Insert Error Log
+           $this->errorLog("Exception Update User Detail",$e->getMessage());
+
+           return $this->respondWithError("Oops some technical problem");
+       }
    }
 }

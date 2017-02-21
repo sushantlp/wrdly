@@ -16,7 +16,7 @@ class ValidatorController extends ApiController
         ]);
 
         if($validator->fails()) {
-            $validator->errors()->add('Signup has failed !');
+            $validator->errors()->all('Signup has failed !');
             $errors = $validator->errors();
             return $this->respondWithError($errors);
         } else {
@@ -32,11 +32,13 @@ class ValidatorController extends ApiController
         ]);
 
         if($validator->fails()) {
-            $validator->errors()->add('Login has failed !');
+            $validator->errors()->all('Login has failed !');
             $errors = $validator->errors();
             return $this->respondWithError($errors);
         } else {
             return 1;
         }
     }
+
+    
 }

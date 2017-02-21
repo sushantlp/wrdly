@@ -13,14 +13,14 @@
             this.basePath = APIBASEPATHLOCAL;
         }
 
-        RestfullApi.prototype.callSignupApi = function (name,email,password) {
+        RestfullApi.prototype.callSignupApi = function (userName,userEmail,userPassword) {
             var response = $http({
                 method: "POST",
                 url: this.basePath + this.relativePath,
                 params: {
-                    user_name:name,
-                    user_email:email,
-                    user_password:password
+                    name:userName,
+                    email:userEmail,
+                    password:userPassword
                 }
             });
 

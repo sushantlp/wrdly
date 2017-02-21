@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiController;
-use App\ErrorLog;
 
 class EmailVerification extends Model
 {
@@ -18,12 +17,13 @@ class EmailVerification extends Model
 
     // Constructor Function Create Object
     public function __construct() {
-        $this->api = new ApiController;
+        $this->api = new ApiController();
     }
 
      // Insert Email Otp Code
     public function insertEmailOtp($email,$code) {
         try {
+
             $emailOtp = new EmailVerification();
             $emailOtp->email = $email;
             $emailOtp->email_verify_code = $code;
@@ -42,6 +42,7 @@ class EmailVerification extends Model
     // Verify Email Verification Code
     public function verifyEmailCode($email,$code) {
         try {
+
             $response = DB::table('email_verifications')
                         ->where('email',$email)
                         ->where('email_verify_code',$code)
@@ -63,10 +64,14 @@ class EmailVerification extends Model
     // Deactivate Email Verification Code Status
     public function deactivateEmailCodeStatus($email,$code) {
         try {
+
+            // Call Indian Time Zone
+            $timeZone = $this->api->indiaTimeZone();
+
             DB::table('email_verifications')
             ->where('email',$email)
             ->where('email_verify_code',$code)
-            ->update(['status' => 0]);
+            ->update(['status' => 0 ,'updated_at' => $timeZone]);
 
             return 1;
         } catch(\Exception $e) {
@@ -81,9 +86,13 @@ class EmailVerification extends Model
     // Disable Previous Email Otp
     public function disableEmailOtp($email) {
         try {
+
+            // Call Indian Time Zone
+            $timeZone = $this->api->indiaTimeZone();
+
             DB::table('email_verifications')
             ->where('email',$email)
-            ->update(['status' => 0]);
+            ->update(['status' => 0 ,'updated_at' => $timeZone]);
 
             return 1;
         } catch(\Exception $e) {
@@ -98,6 +107,7 @@ class EmailVerification extends Model
     // Check Email Code Status
     public function checkEmailCodeStatus($email,$code) {
         try {
+
             $check = DB::table('email_verifications')
                      ->where('email',$email)
                      ->where('email_verify_code',$code)

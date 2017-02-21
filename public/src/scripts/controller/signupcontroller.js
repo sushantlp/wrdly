@@ -1,4 +1,5 @@
 (function () {
+
     'use strict';
     angular.module('wrdly')
     .controller('SignUpController', SignUpController);
@@ -10,12 +11,16 @@
         var signupCtrl = this;
 
         signupCtrl.submitFunction = function() {
-            var userName = signupCtrl.name;
-            var email = signupCtrl.email;
-            var password = signupCtrl.password;
+            var apiUrl = '/api/v1/user/signup'
+            var userName = signupCtrl.userName;
+            var userEmail = signupCtrl.userEmail;
+            var userPassword = signupCtrl.userPassword;
 
-            var apiCall = new RestfullApi();
-            var promise = apiCall.callSignupApi(userName,email,password);
+            console.log(userName);
+            console.log(userEmail);
+            console.log(userPassword);
+            var apiCall = new RestfullApi(apiUrl);
+            var promise = apiCall.callSignupApi(userName,userEmail,userPassword);
             promise.then(function (response) {
                 console.log(response.data);
             })

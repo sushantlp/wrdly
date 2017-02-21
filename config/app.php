@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         JD\Cloudder\CloudderServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
     ],
 

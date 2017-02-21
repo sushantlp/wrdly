@@ -22,7 +22,7 @@ class IdentifyController extends ApiController
 
     // User Signup
     public function signup(Request $request) {
-      if(($request->isMethod('post'))) {
+      if(($request->isMethod('post')) && $request->has('name') && $request->has('email') && $request->has('password')) {
 
           // Call Signup Validator Function
           $promise = $this->validation->signupValidator($request);
@@ -32,9 +32,9 @@ class IdentifyController extends ApiController
               return $promise;
           }
 
-          // Extract Request value
-          $name = $request->input('name');
+          // Extract Request Parameter value
           $email = $request->input('email');
+          $name = $request->input('name');
           $password = $request->input('password');
           $rollId = 1;
 
@@ -91,6 +91,7 @@ class IdentifyController extends ApiController
     public function emailVerifiy(Request $request) {
         if(($request->isMethod('get') && $request->has('code') && $request->has('email'))) {
 
+            // Extract Request Parameter value
             $email = $request->input('email');
             $code = $request->input('code');
 
@@ -126,6 +127,8 @@ class IdentifyController extends ApiController
     // User Login Request
     public function userLogin(Request $request) {
         if($request->isMethod('post') && $request->has('password') && $request->has('email')) {
+
+            // Extract Request Parameter value
             $email = $request->input('email');
             $password = $request->input('password');
             $arr = array();
@@ -150,6 +153,9 @@ class IdentifyController extends ApiController
                 return $token;
             }
 
+            // Put User Email in Session 
+            $session = $this->loginSession($request,$email);
+
             $arr['Primary_Id'] = $verify->user_id;
             $arr['User_Name'] = $verify->name;
             $arr['User_Mobile'] = $verify->mobile;
@@ -157,8 +163,41 @@ class IdentifyController extends ApiController
             $arr['Active'] = $verify->status;
             $arr['Token'] = $token;
 
-            return $arr;
+            return $this->respondWithSuccess($arr);
 
+        } else {
+            return $this->respondWithError("Not a good api call");
+        }
+    }
+
+    public function tokenRegenerate(Request $request) {
+        if($request->isMethod('post') && $request->has('password') && $request->has('email')) {
+
+            // Extract Request Parameter value
+            $email = $request->input('email');
+            $password = $request->input('password');
+
+            // Call Signup Validator Function
+            $promise = $this->validation->loginValidator($request);
+
+            // If Return Value is Not Numeric Validation Fail
+            if(!is_numeric($promise)) {
+                return $promise;
+            }
+
+            // User Credential Verify
+            $verify = $this->verifyUserCredential($email,$password);
+            if(is_string($verify)) {
+                return $verify;
+            }
+
+            // Generate JWT Token
+            $token = $this->generateToken($verify,$verify->role_id);
+            if(is_string($token)) {
+                return $token;
+            }
+
+            return $this->respondWithSuccess($token);
         } else {
             return $this->respondWithError("Not a good api call");
         }
