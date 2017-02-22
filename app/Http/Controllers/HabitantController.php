@@ -37,7 +37,7 @@ class HabitantController extends ApiController
 
 
     public function completeProfile(Request $request) {
-        if(($request->isMethod('post')) && $request->has('gender') && $request->has('mobile') && $request->has('state') && $request->has('city') && $request->has('address')) {
+        if($request->isMethod('post') && $request->has('gender') && $request->has('mobile') && $request->has('state') && $request->has('city') && $request->has('address')) {
 
             // Extract Request Parameter value
             $mobile = $request->input('mobile');
@@ -75,10 +75,10 @@ class HabitantController extends ApiController
         } else {
             return $this->respondWithError("Not a good api call");
         }
-    }
 
+    }
     public function updateProfile(Request $request) {
-        if($request->isMethod('post')) && $request->has('gender') && $request->has('mobile') && $request->has('state') && $request->has('city') && $request->has('address')) {
+        if($request->isMethod('post') && $request->has('gender') && $request->has('mobile') && $request->has('state') && $request->has('city') && $request->has('address')) {
 
             // Extract Request Parameter value
             $mobile = $request->input('mobile');
@@ -215,10 +215,16 @@ class HabitantController extends ApiController
                    $arr3['End'] = 1;
                }
             } else {
-                return $this->respondWithMessage("Empty system")
+                return $this->respondWithMessage("Empty system");
             }
         } else {
             return $this->respondWithError("Not a good api call");
+        }
+    }
+
+    public function keepSolarSystem(Request $request) {
+        if($request->isMethod('get') && $request->has('skip')) {
+
         }
     }
 }

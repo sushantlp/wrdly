@@ -40,5 +40,5 @@ class ValidatorController extends ApiController
         }
     }
 
-    
+
 }

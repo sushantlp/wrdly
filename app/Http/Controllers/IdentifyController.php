@@ -22,7 +22,7 @@ class IdentifyController extends ApiController
 
     // User Signup
     public function signup(Request $request) {
-      if(($request->isMethod('post')) && $request->has('name') && $request->has('email') && $request->has('password')) {
+      if($request->isMethod('post') && $request->has('name') && $request->has('email') && $request->has('password')) {
 
           // Call Signup Validator Function
           $promise = $this->validation->signupValidator($request);
@@ -45,8 +45,8 @@ class IdentifyController extends ApiController
           }
 
           // Insert User Detail in User Table
-          $insertUser = $this->insertUserDetail($name,$email,$password,null,$rollId);
           if(!is_numeric($insertUser)) {
+              $insertUser = $this->insertUserDetail($name,$email,$password,null,$rollId);
               return $insertUser;
           }
 
@@ -89,7 +89,7 @@ class IdentifyController extends ApiController
 
     // Email Verification
     public function emailVerifiy(Request $request) {
-        if(($request->isMethod('get') && $request->has('code') && $request->has('email'))) {
+        if($request->isMethod('get') && $request->has('code') && $request->has('email')) {
 
             // Extract Request Parameter value
             $email = $request->input('email');
@@ -153,7 +153,7 @@ class IdentifyController extends ApiController
                 return $token;
             }
 
-            // Put User Email in Session 
+            // Put User Email in Session
             $session = $this->loginSession($request,$email);
 
             $arr['Primary_Id'] = $verify->user_id;

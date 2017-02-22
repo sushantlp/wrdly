@@ -29,7 +29,7 @@ Route::group(['prefix' => 'api/v1'],function() {
         Route::post('/updateinfo',['middleware' => 'cors','uses' => 'HabitantController@updateProfile']);
 
         Route::get('/getstatic',['middleware' => 'cors','uses' => 'HabitantController@getStaticData']);
-        Route::get('/getbook',['middleware' => 'cors','uses' => 'HabitantController@getSolarSystem');
-        Route::post('/keepbook',['middleware' => 'cors','uses' => 'HabitantController@keepSolarSystem');
+        Route::get('/getbook',['middleware' => 'cors','uses' => 'HabitantController@getSolarSystem']);
+        Route::post('/keepbook',['middleware' => 'cors','uses' => 'HabitantController@keepSolarSystem']);
     });
 });
