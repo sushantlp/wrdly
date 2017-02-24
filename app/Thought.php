@@ -9,7 +9,6 @@ use App\Http\Controllers\ApiController;
 class Thought extends Model
 {
     protected $table = 'thoughts';
-    protected $primaryKey='thought_id';
     protected $fillable = ['habitant_id','theme_id','heart_counter','view_counter','countribute_counter','subscribe_counter','status'];
 
     // Variable Declaration
@@ -22,7 +21,7 @@ class Thought extends Model
 
     // Get Wrdly Solar World
     public function wrdlySolarSystem($skip) {
-        try {
+    //    try {
 
             $jump = $skip * 10;
 
@@ -31,7 +30,7 @@ class Thought extends Model
                         ,'thoughts.habitant_id as Habitant_Id'
                         ,'users.name as Habitant_Name'
                         ,'thoughts.theme_id as Theme_Id'
-                        ,'thoughts.theme_name as Theme_Name'
+                        ,'themes.theme_name as Theme_Name'
                         ,'thoughts.heart_counter as Heart_Count'
                         ,'thoughts.view_counter as View_Count'
                         ,'thoughts.countribute_counter as Countribute_Count'
@@ -41,18 +40,54 @@ class Thought extends Model
                      ->leftjoin('users','users.user_id', '=' ,'habitants.user_id')
                      ->leftjoin('themes','themes.theme_id', '=' ,'thoughts.theme_id')
                      ->where('thoughts.status',1)
-                     ->orderBy('thoughts.updated_at',desc)
+                     ->orderBy('thoughts.updated_at','desc')
                      ->take(10)
                      ->skip($jump)
                      ->get();
 
                     return $solar;
-        } catch(\Exception $e) {
+    //    } catch(\Exception $e) {
 
             // Insert Error Log
             $this->api->errorLog("Exception Get Wrdly Solar World",$e->getMessage());
 
             return $this->api->respondWithError("Oops some technical problem");
+    //    }
+    }
+
+    // Insert Awesome Ideas
+    public function createSolarSystem($habitantId,$themeId) {
+        try {
+
+            $idea = new Thought();
+            $idea->habitant_id = $habitantId;
+            $idea->theme_id = $themeId;
+            $idea->save();
+
+            return (int) $idea->id;
+        } catch(\Exception $e) {
+
+            // Insert Error Log
+            $this->api->errorLog("Exception Insert Awesome Ideas",$e->getMessage());
+
+            return $this->api->respondWithError("Oops some technical problem");
         }
+    }
+
+    // Get Book Owner
+    public function getBookOwner($thoughtId) {
+    //    try {
+            $owner = DB::table('thoughts')
+                     ->where('thought_id',$thoughtId)
+                     ->first();
+
+            return json_decode(json_encode($owner),true);
+    //    } catch(\Exception $e) {
+
+            // Insert Error Log
+            $this->api->errorLog("Exception Get Book Owner",$e->getMessage());
+
+            return $this->api->respondWithError("Oops some technical problem");
+    //    }
     }
 }

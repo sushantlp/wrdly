@@ -40,13 +40,19 @@ class IdentifyController extends ApiController
 
           // Check User Already Registered
           $check = $this->getUserDetailByEmail($email);
-          if(is_object($check)) {
+
+          if(is_string($check)) {
+              return $check;
+          }
+
+          $check = json_decode(json_encode($check),true);
+          if(!empty($check)) {
               return $this->respondWithMessage("You already signup! please login");
           }
 
           // Insert User Detail in User Table
+          $insertUser = $this->insertUserDetail($name,$email,$password,null,$rollId);
           if(!is_numeric($insertUser)) {
-              $insertUser = $this->insertUserDetail($name,$email,$password,null,$rollId);
               return $insertUser;
           }
 
@@ -97,13 +103,18 @@ class IdentifyController extends ApiController
 
             // Verify Email Verification Code
             $check = $this->emailObject->verifyEmailCode($email,$code);
+
             if(is_string($check)) {
                 return $check;
             }
 
+            $check = json_decode(json_encode($check),true);
+            if(empty($check)) {
+                return $this->respondWithMessage("Wrong code verification fail!");
+            }
+
             // Check Email Code Status
-            $watch = $this->emailObject->checkEmailCodeStatus($email,$code);
-            if(!is_object($watch)) {
+            if($check['status'] == 0) {
                 return $this->respondWithMessage("You already verify your account! please login");
             }
 
@@ -148,7 +159,7 @@ class IdentifyController extends ApiController
             }
 
             // Generate JWT Token
-            $token = $this->generateToken($verify,$verify->role_id);
+            $token = $this->generateToken((object)$verify,$verify['role_id']);
             if(is_string($token)) {
                 return $token;
             }
@@ -156,11 +167,11 @@ class IdentifyController extends ApiController
             // Put User Email in Session
             $session = $this->loginSession($request,$email);
 
-            $arr['Primary_Id'] = $verify->user_id;
-            $arr['User_Name'] = $verify->name;
-            $arr['User_Mobile'] = $verify->mobile;
-            $arr['User_Email'] = $verify->email;
-            $arr['Active'] = $verify->status;
+            $arr['Primary_Id'] = $verify['user_id'];
+            $arr['User_Name'] = $verify['name'];
+            $arr['User_Mobile'] = $verify['mobile'];
+            $arr['User_Email'] = $verify['email'];
+            $arr['Active'] = $verify['status'];
             $arr['Token'] = $token;
 
             return $this->respondWithSuccess($arr);
@@ -192,7 +203,7 @@ class IdentifyController extends ApiController
             }
 
             // Generate JWT Token
-            $token = $this->generateToken($verify,$verify->role_id);
+            $token = $this->generateToken((object)$verify,$verify['role_id']);
             if(is_string($token)) {
                 return $token;
             }

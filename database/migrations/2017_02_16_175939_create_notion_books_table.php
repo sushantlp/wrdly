@@ -18,7 +18,7 @@ class CreateNotionBooksTable extends Migration
             $table->increments('book_id');
             $table->integer('thought_id');
             $table->integer('habitant_id');
-            $table->text('chapter');
+            $table->text('paragraph');
             $table->tinyInteger('status')->default(1);  // Zero for Reject and One for Pending and Two for Approve
             $table->timestamps();
         });

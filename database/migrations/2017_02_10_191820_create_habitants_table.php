@@ -18,6 +18,7 @@ class CreateHabitantsTable extends Migration
             $table->increments('habitant_id');
             $table->integer('user_id');
             $table->integer('gender_id');
+            $table->integer('country')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();

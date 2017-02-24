@@ -31,5 +31,6 @@ Route::group(['prefix' => 'api/v1'],function() {
         Route::get('/getstatic',['middleware' => 'cors','uses' => 'HabitantController@getStaticData']);
         Route::get('/getbook',['middleware' => 'cors','uses' => 'HabitantController@getSolarSystem']);
         Route::post('/keepbook',['middleware' => 'cors','uses' => 'HabitantController@keepSolarSystem']);
+        Route::post('/team',['middleware' => 'cors','uses' => 'HabitantController@keepBookNotion']);
     });
 });

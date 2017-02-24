@@ -47,11 +47,8 @@ class EmailVerification extends Model
                         ->where('email',$email)
                         ->where('email_verify_code',$code)
                         ->first();
-            if($response) {
-                return $response;
-            } else {
-                return $this->respondWithMessage("Wrong code verification fail!");
-            }
+
+            return $response;
         } catch(\Exception $e) {
 
             // Insert Error Log
@@ -99,26 +96,6 @@ class EmailVerification extends Model
 
             // Insert Error Log
             $this->api->errorLog("Disable Email Otp",$e->getMessage());
-
-            return $this->api->respondWithError("Oops some technical problem");
-        }
-    }
-
-    // Check Email Code Status
-    public function checkEmailCodeStatus($email,$code) {
-        try {
-
-            $check = DB::table('email_verifications')
-                     ->where('email',$email)
-                     ->where('email_verify_code',$code)
-                     ->where('status',1)
-                     ->first();
-
-            return $check;
-        } catch(\Exception $e) {
-
-            // Insert Error Log
-            $this->api->errorLog("Check Email Code Status",$e->getMessage());
 
             return $this->api->respondWithError("Oops some technical problem");
         }

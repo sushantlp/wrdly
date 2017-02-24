@@ -10,7 +10,7 @@ class Habitant extends Model
 {
     protected $table = 'habitants';
     protected $primaryKey='habitant_id';
-    protected $fillable = ['user_id','state','city','address','latitude','longtitude','gender_id'];
+    protected $fillable = ['user_id','country','state','city','address','latitude','longtitude','gender_id'];
 
     // Variable Declaration
     protected $api;
@@ -63,6 +63,23 @@ class Habitant extends Model
 
             // Insert Error Log
             $this->api->errorLog("Exception Update Habitant Complete Information",$e->getMessage());
+
+            return $this->api->respondWithError("Oops some technical problem");
+        }
+    }
+
+    // Get Habitant Information
+    public function getHabitantDetail($userId) {
+        try {
+            $info = DB::table('habitants')
+                    ->where('user_id',$userId)
+                    ->first();
+
+            return $info;
+        } catch(\Exception $e) {
+
+            // Insert Error Log
+            $this->api->errorLog("Exception Get Habitant Information",$e->getMessage());
 
             return $this->api->respondWithError("Oops some technical problem");
         }
