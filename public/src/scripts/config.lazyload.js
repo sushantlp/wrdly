@@ -146,8 +146,8 @@
             files: [
                 'bower_components/bower-jvectormap/jquery-jvectormap-1.2.2.min.js',
                 'bower_components/bower-jvectormap/jquery-jvectormap.css',
-                'bower_components/bower-jvectormap/jquery-jvectormap-us-aea-en.js',
                 'bower_component/bower-jvectormap/jquery-jvectormap-world-mill-en.js',
+                'bower_components/bower-jvectormap/jquery-jvectormap-us-aea-en.js'
             ]
         },
         {

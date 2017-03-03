@@ -21,7 +21,7 @@ class Thought extends Model
 
     // Get Wrdly Solar World
     public function wrdlySolarSystem($skip) {
-    //    try {
+        try {
 
             $jump = $skip * 10;
 
@@ -46,13 +46,13 @@ class Thought extends Model
                      ->get();
 
                     return $solar;
-    //    } catch(\Exception $e) {
+        } catch(\Exception $e) {
 
             // Insert Error Log
             $this->api->errorLog("Exception Get Wrdly Solar World",$e->getMessage());
 
             return $this->api->respondWithError("Oops some technical problem");
-    //    }
+        }
     }
 
     // Insert Awesome Ideas
@@ -76,18 +76,18 @@ class Thought extends Model
 
     // Get Book Owner
     public function getBookOwner($thoughtId) {
-    //    try {
+        try {
             $owner = DB::table('thoughts')
                      ->where('thought_id',$thoughtId)
                      ->first();
 
             return json_decode(json_encode($owner),true);
-    //    } catch(\Exception $e) {
+        } catch(\Exception $e) {
 
             // Insert Error Log
             $this->api->errorLog("Exception Get Book Owner",$e->getMessage());
 
             return $this->api->respondWithError("Oops some technical problem");
-    //    }
+        }
     }
 }

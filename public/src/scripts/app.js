@@ -21,4 +21,3 @@
         'oc.lazyLoad',
         'angular-loading-bar',
     ]);
-

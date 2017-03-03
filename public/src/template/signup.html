@@ -26,7 +26,7 @@
         <label>Email</label>
       </div>
       <div class="md-form-group">
-        <input type="password" class="md-input" ng-model="signupCtrl.userPassword" required>
+        <input type="password" class="md-input" ng-model="signupCtrl.userPassword" ng-minlength="6"required>
         <label>Password</label>
       </div>
     <!--  <div class="md-form-group">
@@ -37,7 +37,7 @@
           <input type="checkbox" ng-model="agree" required><i class="indigo"></i> Agree the <a href>terms and policy</a>
         </label>
       </div>
-      <button md-ink-ripple type="submit" ng-click="signupCtrl.submitFunction()" class="md-btn md-raised pink btn-block p-h-md">Sign up</button>
+      <button md-ink-ripple type="submit" ng-click="signupCtrl.submitFunction()" class="md-btn md-raised pink btn-block p-h-md"  ng-disabled="form.$invalid">Sign up</button>
     </form>
   </div>
 

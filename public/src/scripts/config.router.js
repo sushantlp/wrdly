@@ -39,6 +39,13 @@
                 templateUrl: RELATIVEPATH + 'forgot-password.html',
                 controller: 'ForgotPasswordController',
                 controllerAs: 'forgotCtrl',
+            })
+
+            .state('profile-fillup', {
+                url: '/profile-fillup',
+                templateUrl: RELATIVEPATH + 'profile-fillup.html',
+                controller: 'ProfileController',
+                controllerAs: 'profileCtrl',
             });
     };
 })();
