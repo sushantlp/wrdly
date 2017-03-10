@@ -4,15 +4,36 @@
 
     angular.module('wrdly')
     .constant('RELATIVEPATH', "src/template/")
+    .run(routeRun)
     .config(routeConfig);
 
+    routeRun.$inject = ['$rootScope', '$state', '$stateParams'];
     routeConfig.$inject = ['$stateProvider','$urlRouterProvider','RELATIVEPATH'];
 
-    function routeConfig ($stateProvider,$urlRouterProvider,RELATIVEPATH) {
+    function routeRun($rootScope,$state,$stateParams) {
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+    }
+
+    function routeConfig($stateProvider,$urlRouterProvider,RELATIVEPATH) {
 
         $urlRouterProvider.otherwise('/signin');
 
         $stateProvider
+
+            .state('app', {
+                abstract: true,
+                views: {
+                    '': {
+                        templateUrl: RELATIVEPATH + 'layout.html'
+                    },
+
+                    'content': {
+                        templateUrl: RELATIVEPATH + 'content.html'
+                    }
+                }
+            })
+
             .state('signin', {
                 url: '/signin',
                 templateUrl: RELATIVEPATH + 'signin.html',
@@ -41,7 +62,7 @@
                 controllerAs: 'forgotCtrl',
             })
 
-            .state('profile-fillup', {
+            .state('app.profile-fillup', {
                 url: '/profile-fillup',
                 templateUrl: RELATIVEPATH + 'profile-fillup.html',
                 controller: 'ProfileController',

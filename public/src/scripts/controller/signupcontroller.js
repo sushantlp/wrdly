@@ -54,11 +54,12 @@
 
     }
 
-    function ProfileController($timeout,$q,$log) {
+    function ProfileController($timeout,$q) {
         var self = this;
 
         self.simulateQuery = true;
         self.isDisabled    = false;
+        self.template = 'src/template/content.html';
 
         // list of `state` value/display objects
         self.states        = loadAll();
@@ -109,32 +110,14 @@
             };
         }
 
-        self.data = {
-            group1 : 'Banana',
-            group2 : '2',
-            group3 : 'avatar-1'
-        };
+         self.changeClassNext = function() {
+             $("#one").removeClass("active");
+             $("#two").addClass("active");
+         };
 
-        self.avatarData = [{
-            id: "svg-1",
-            title: 'avatar 1',
-            value: 'avatar-1'
-        },{
-            id: "svg-2",
-            title: 'avatar 2',
-            value: 'avatar-2'
-        },{
-            id: "svg-3",
-            title: 'avatar 3',
-            value: 'avatar-3'
-        }];
-
-        self.radioData = [
-            { label: '1', value: 1 },
-            { label: '2', value: 2 },
-            { label: '3', value: '3', isDisabled: true },
-            { label: '4', value: '4' }
-        ];
-        console.log("hello");
+         self.changeClassPrev = function() {
+             $("#two").removeClass("active");
+             $("#one").addClass("active");
+         };
     }
 })();

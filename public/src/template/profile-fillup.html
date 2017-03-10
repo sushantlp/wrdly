@@ -1,97 +1,175 @@
-<div class="row">
+
+
+<div class="row" ng-controller="ProfileController as profileCtrl">
    <div class="col-sm-12">
        <div class="md-whiteframe-z0 bg-white">
            <ul class="nav nav-lines nav-tabs nav-justified">
-               <li class="active">
+               <li class="active" id="one">
                    <a href data-toggle="tab" data-target="#tab_7">Update Profile <span class="badge bg-info badge-xs">1</span></a>
                </li>
-               <li>
+               <li id="two">
                    <a href data-toggle="tab" data-target="#tab_8">Your Pic <span class="badge bg-info badge-xs">2</span></a>
                </li>
 
            </ul>
            <div class="tab-content p m-b-md clear b-t b-t-2x">
                <div role="tabpanel" class="tab-pane animated fadeInDown active" id="tab_7">
-                   <div ng-controller="ProfileController as ctrl" layout="column" ng-cloak>
+                   <div ng-controller="ProfileController as profileCtrl" layout="column" ng-cloak>
                        <md-content class="md-padding" layout-fill class="md-accent">
-                           <form ng-submit="$event.preventDefault()">
+                           <form ng-submit="$event.preventDefault()" name="form">
                                <p>Please Select Your <code>Country</code></p>
                                <md-autocomplete class="autocomplete"
-                                    ng-disabled="ctrl.isDisabled"
-                                    md-no-cache="ctrl.noCache"
-                                    md-selected-item="ctrl.selectedItem"
-                                    md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                                    md-search-text="ctrl.searchText"
-                                    md-selected-item-change="ctrl.selectedItemChange(item)"
-                                    md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                    ng-disabled="profileCtrl.isDisabled"
+                                    md-no-cache="profileCtrl.noCache"
+                                    md-selected-item="profileCtrl.selectedItem"
+                                    md-search-text-change="profileCtrl.searchTextChange(profileCtrl.searchText)"
+                                    md-search-text="profileCtrl.searchText"
+                                    md-selected-item-change="profileCtrl.selectedItemChange(item)"
+                                    md-items="item in profileCtrl.querySearch(profileCtrl.searchText)"
                                     md-item-text="item.display"
                                     md-min-length="0"
                                     placeholder="What is your country name? ">
                                     <md-item-template>
-                                        <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                                        <span md-highlight-text="profileCtrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
                                     </md-item-template>
                                     <md-not-found>
-                                        No states matching "{{ctrl.searchText}}" were found.
-                                        <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+                                        No states matching "{{profileCtrl.searchText}}" were found.
+                                        <a ng-click="profileCtrl.newState(profileCtrl.searchText)">Create a new one!</a>
                                     </md-not-found>
                                 </md-autocomplete>
 
                                 <p class="heavy">Please Select Your <code>State</code></p>
                                 <md-autocomplete
-                                     ng-disabled="ctrl.isDisabled"
-                                     md-no-cache="ctrl.noCache"
-                                     md-selected-item="ctrl.selectedItem"
-                                     md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                                     md-search-text="ctrl.searchText"
-                                     md-selected-item-change="ctrl.selectedItemChange(item)"
-                                     md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                     ng-disabled="profileCtrl.isDisabled"
+                                     md-no-cache="profileCtrl.noCache"
+                                     md-selected-item="profileCtrl.selectedItem"
+                                     md-search-text="profileCtrl.searchText"
+                                     md-selected-item-change="profileCtrl.selectedItemChange(item)"
+                                     md-items="item in profileCtrl.querySearch(profileCtrl.searchText)"
+                                     md-search-text-change="profileCtrl.searchTextChange(profileCtrl.searchText)"
                                      md-item-text="item.display"
                                      md-min-length="0"
                                      placeholder="What is your state name?">
                                      <md-item-template>
-                                         <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                                         <span md-highlight-text="profileCtrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
                                      </md-item-template>
                                      <md-not-found>
-                                         No states matching "{{ctrl.searchText}}" were found.
-                                         <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+                                         No states matching "{{profileCtrl.searchText}}" were found.
+                                         <a ng-click="profileCtrl.newState(profileCtrl.searchText)">Create a new one!</a>
                                      </md-not-found>
                                  </md-autocomplete>
 
                                  <p class="heavy">Please Select Your <code>City</code></p>
                                  <md-autocomplete
-                                      ng-disabled="ctrl.isDisabled"
-                                      md-no-cache="ctrl.noCache"
-                                      md-selected-item="ctrl.selectedItem"
-                                      md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                                      md-search-text="ctrl.searchText"
-                                      md-selected-item-change="ctrl.selectedItemChange(item)"
-                                      md-items="item in ctrl.querySearch(ctrl.searchText)"
+                                      ng-disabled="profileCtrl.isDisabled"
+                                      md-no-cache="profileCtrl.noCache"
+                                      md-selected-item="profileCtrl.selectedItem"
+                                      md-search-text-change="profileCtrl.searchTextChange(profileCtrl.searchText)"
+                                      md-search-text="profileCtrl.searchText"
+                                      md-selected-item-change="profileCtrl.selectedItemChange(item)"
+                                      md-items="item in profileCtrl.querySearch(profileCtrl.searchText)"
                                       md-item-text="item.display"
                                       md-min-length="0"
                                       placeholder="What is your city name?">
                                       <md-item-template>
-                                          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                                          <span md-highlight-text="profileCtrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
                                       </md-item-template>
                                       <md-not-found>
-                                          No states matching "{{ctrl.searchText}}" were found.
-                                          <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+                                          No states matching "{{profileCtrl.searchText}}" were found.
+                                          <a ng-click="profileCtrl.newState(profileCtrl.searchText)">Create a new one!</a>
                                       </md-not-found>
                                   </md-autocomplete>
 
-                                  <p class="heavy">Please select your <code>Gender</code></p>
-                                  <md-radio-group ng-model="data.group1">
-                                      <md-radio-button value="Male" class="md-primary">Male</md-radio-button>
-                                      <md-radio-button value="Female">Female</md-radio-button>
-                                  </md-radio-group>
+                                   <div class="col-sm-4">
+                                       <p class="heavy">Please Select Your <code>Gender</code></p>
+                                       <md-radio-group ng-model="data.group1">
+                                           <md-radio-button value="Male" class="md-primary">Male</md-radio-button>
+                                           <md-radio-button value="Female">Female</md-radio-button>
+                                       </md-radio-group>
+                                   </div>
 
+                                   <div class="col-sm-4">
+                                       <p class="heavy">Please Select Your <code>Birthday</code></p>
+                                       <md-datepicker ng-model="profileCtrl.submissionDate"></md-datepicker>
+                                   </div>
+
+                                    <div class="col-sm-4">
+                                        <p class="heavy">Please Enter Your <code>Mobile</code></p>
+                                        <md-input-container md-no-float class="md-block">
+                                            <input ng-model="user.phone" type="text" placeholder="Phone Number">
+                                        </md-input-container>
+                                    </div>
+
+                                <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab1-next-btn" data-target="#tab_8" data-toggle="tab" ng-click="profileCtrl.changeClassNext()">Next</md-button>
                             </form>
                         </md-content>
                     </div>
+
                </div>
                <div role="tabpanel" class="tab-pane animated fadeInDown" id="tab_8">
 
-               </div>
+                        <alert ng-show="onapicall" type="info">Please wait.</alert>
 
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="wrapper-md">
+                                    <h4 class="m-n font-thin">Select file</h3>
+                                 </div>
+                                 <div class="wrapper-md" id="file">
+                                     <input type="file" file-model="profile.myFile" accept=".png,.jpg,.tif"/>
+                                 </div>
+                             </div>
+
+                             <div class="col-sm-8">
+                                 <div class="wrapper-md">
+                                     <h4 class="m-n font-thin">Upload queue</h3>
+                                 </div>
+                                 <div class="wrapper-md">
+                                     <table class="table bg-white-only b-a">
+                                         <thead>
+                                             <tr>
+                                                 <th width="50%">Name</th>
+                                                 <th>Size</th>
+                                                 <th>Progress</th>
+                                                 <th>Status</th>
+                                                 <th>Actions</th>
+                                             </tr>
+                                         </thead>
+                                         <tbody>
+                                             <tr>
+                                                 <td><strong>{{ u.fileName }}</strong></td>
+                                                 <td nowrap>{{ u.fileSize }} MB</td>
+                                                 <td>
+                                                     <div class="progress progress-sm m-b-none m-t-xs">
+                                                         <div class="progress-bar bg-info" role="progressbar" ng-style="{ 'width': progresspercent + '%' }"></div>
+                                                     </div>
+                                                 </td>
+                                                 <td class="text-center">
+                                                     <span ng-show="item.isSuccess" class="text-success"><i class="glyphicon glyphicon-ok"></i></span>
+                                                     <span ng-show="item.isCancel" class="text-warning"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                     <span ng-show="item.isError" class="text-danger"><i class="glyphicon glyphicon-remove"></i></span>
+                                                 </td>
+                                                 <td nowrap>
+                                                     <button type="button" class="btn btn-default btn-xs" ng-click="uploadFile()" ng-disabled="u.fileName == '' || u.fileName == undefined">
+                                                         Upload
+                                                     </button>
+                                                     <button type="button" class="btn btn-default btn-xs" ng-click="removeFile()" ng-disabled="u.fileName == '' || u.fileName == undefined">
+                                                         Remove
+                                                     </button>
+                                                 </td>
+                                             </tr>
+                                         </tbody>
+                                     </table>
+                                 </div>
+                             </div>
+                         </div>
+
+                <div class="tab2-last-div">
+                    <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab2-prev-btn" data-target="#tab_7" data-toggle="tab" ng-click="profileCtrl.changeClassPrev()">Prev</md-button>
+                    <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab1-next-btn">Next</md-button>
+                </div>
+
+               </div>
            </div>
        </div>
    </div>

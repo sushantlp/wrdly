@@ -8,9 +8,22 @@
     margin-right: 50px ;
     margin-bottom: 50px;
 }
-.heavy{
+.heavy {
+    margin-top: 40px;
+}
+.autocomplete {
+
+}
+#tab1-next-btn {
+    background-color: #ff6686;
+    float: right;
+}
+#tab2-prev-btn {
+    background-color: #7b53fc;
+}
+.tab2-last-div {
     margin-top: 30px;
 }
-.autocomplete{
-       
+h4{
+    padding-bottom: 40px;
 }
