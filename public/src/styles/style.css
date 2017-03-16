@@ -24,6 +24,24 @@
 .tab2-last-div {
     margin-top: 30px;
 }
-h4{
+h4 {
     padding-bottom: 40px;
+}
+#nav-bar {
+    background-color: #1c2b36;
+}
+h1 {
+    font-size: 50px;
+    font-family: 'Dosis', sans-serif;
+    color: rgba(119, 115, 115, 0.87);
+/*    font-family: 'Open Sans', sans-serif; */
+}
+.writer {
+    font-size: 25px;
+    font-family: 'Open Sans', sans-serif;
+    color: rgba(119, 115, 115, 0.87);
+}
+#dash-row{
+    margin-top:0px;
+    text-align: center;
 }

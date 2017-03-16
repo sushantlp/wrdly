@@ -4,7 +4,7 @@
     angular.module('wrdly')
     .controller('SignUpController', SignUpController)
     .controller('ProfileController', ProfileController);
-
+    
 
     SignUpController.$inject = ['RestfullApi','$state'];
     ProfileController.$inject = ['$timeout','$q'];

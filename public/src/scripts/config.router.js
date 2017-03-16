@@ -67,6 +67,13 @@
                 templateUrl: RELATIVEPATH + 'profile-fillup.html',
                 controller: 'ProfileController',
                 controllerAs: 'profileCtrl',
+            })
+
+            .state('app.dashboard', {
+                url: '/dashboard',
+                templateUrl: RELATIVEPATH + 'dashboard.html',
+                controller: 'DashboardController',
+                controllerAs: 'dashCtrl',
             });
     };
 })();
