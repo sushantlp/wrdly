@@ -31,17 +31,36 @@ h4 {
     background-color: #1c2b36;
 }
 h1 {
-    font-size: 50px;
+    font-size: 40px;
     font-family: 'Dosis', sans-serif;
     color: rgba(119, 115, 115, 0.87);
 /*    font-family: 'Open Sans', sans-serif; */
 }
 .writer {
-    font-size: 25px;
+    font-size: 20px;
     font-family: 'Open Sans', sans-serif;
     color: rgba(119, 115, 115, 0.87);
 }
-#dash-row{
+#dash-row {
     margin-top:0px;
     text-align: center;
+}
+ul {
+    list-style-type: none;
+}
+.carddemoBasicUsage .card-media {
+  background-color: #999999;
+}
+#card {
+    border-radius: 6px;
+}
+md-card-content{
+    height: 150px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+#card-platform {
+    background-color: rgb(239, 239, 239);
 }
