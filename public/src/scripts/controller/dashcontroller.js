@@ -16,8 +16,22 @@
     function DashboardController(RestfullApi) {
         var dash = this;
 
-        dash.changeIconColor = function() {
-            //var element = document.getElementById('favorite').style.color = "blue";
-        };
+        dash.content = [
+            {
+                past: 'fish'
+            },
+            {
+                past: 'yellow'
+            },
+            {
+                past: 'green'
+            },
+            {
+                past: 'blue'
+            },
+            {
+                past: 'red'
+            }
+        ];
     }
 })();

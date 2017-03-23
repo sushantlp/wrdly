@@ -49,10 +49,16 @@ ul {
     list-style-type: none;
 }
 .carddemoBasicUsage .card-media {
-  background-color: #999999;
+    background-color: #999999;
 }
 #card {
     border-radius: 6px;
+}
+.oddflex {
+    margin-left: ;
+}
+.evenflex {
+    margin-left: ;
 }
 md-card-content{
     height: 150px;
@@ -60,7 +66,40 @@ md-card-content{
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
 }
-
 #card-platform {
     background-color: rgb(239, 239, 239);
+}
+md-card md-card-header {
+    padding: 0px;
+}
+
+#card-header {
+    height: 4px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 6px 6px 0 0;
+}
+.fiesta {
+    background-color: #ff6686;
+}
+.ultra_marine {
+    background-color: #7b53fc;
+}
+.sea_blue {
+    background-color: #21e8ea;
+}
+.golden_yellow {
+    background-color: #ffc555;
+}
+.atom_green {
+    background-color: #33DAA0;
+}
+.nice_green {
+    background-color: #65A026;
+}
+.gibson_red {
+    background-color: #D52735;
+}
+.gibson_orange {
+    background-color: #EC4438;
 }

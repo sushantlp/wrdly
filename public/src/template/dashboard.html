@@ -6,10 +6,14 @@
         </div>
     </div>
 
-    <md-content class="md-padding" layout-xs="column" layout="row" id="card-platform">
-        <div flex-xs flex-gt-xs="40" layout="column">
-            <md-card md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch id="card">
-                <div></div>
+<!--    <md-content class="md-padding" layout-xs="column" layout="row" id="card-platform" >
+        <div flex-xs flex-gt-xs="40" layout="row"  ng-class-odd="'oddflex'" ng-class-even="'evenflex'" > -->
+        <div class="row">
+            <div class="col-sm-6" ng-repeat="item in dashCtrl.content">
+            <md-card md-theme-watch id="card" >
+                 <md-card-header id="main-card">
+                     <div id="card-header" ng-class="{fiesta: item.past == 'fish', golden_yellow: item.past == 'yellow', atom_green: item.past == 'green', gibson_red: item.past == 'red', sea_blue: item.past == 'blue'}"></div>
+                 </md-card-header>
                 <md-card-content >
                     <p>
                         The titles of Washed Out's breakthrough song and the first single from Paracosm share the
@@ -30,7 +34,9 @@
                 </md-card-actions>
             </md-card>
         </div>
-  </md-content>
+    </div>
+    <!--    </div>
+  </md-content> -->
     <!--<div class="row">
         <div class="col-sm-6">
             <md-card md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch id="card">
