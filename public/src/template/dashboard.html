@@ -6,13 +6,11 @@
         </div>
     </div>
 
-<!--    <md-content class="md-padding" layout-xs="column" layout="row" id="card-platform" >
-        <div flex-xs flex-gt-xs="40" layout="row"  ng-class-odd="'oddflex'" ng-class-even="'evenflex'" > -->
-        <div class="row">
-            <div class="col-sm-6" ng-repeat="item in dashCtrl.content">
+    <div class="row">
+        <div class="col-sm-5" ng-repeat="item in dashCtrl.content" ng-class-odd="'oddflex'" ng-class-even="'evenflex'">
             <md-card md-theme-watch id="card" >
                  <md-card-header id="main-card">
-                     <div id="card-header" ng-class="{fiesta: item.past == 'fish', golden_yellow: item.past == 'yellow', atom_green: item.past == 'green', gibson_red: item.past == 'red', sea_blue: item.past == 'blue'}"></div>
+                     <div id="card-header" ng-class="{fiesta: item.past == 'fish', golden_yellow: item.past == 'yellow', atom_green: item.past == 'green', gibson_red: item.past == 'red', sea_blue: item.past == 'blue', ultra_marine: item.past == 'ultra', nice_green: item.past == 'nice-green', gibson_orange: item.past == 'orange'}"></div>
                  </md-card-header>
                 <md-card-content >
                     <p>
@@ -22,43 +20,28 @@
                 </md-card-content>
 
                 <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-icon-button" aria-label="Favorite" id="favorite">
-                        <md-icon md-font-set="md">favorite</md-icon>
+                    <md-button class="md-icon-button" aria-label="favorite" id="favorite">
+                       <ng-md-icon icon="favorite" ng-style="{fill:dashCtrl.change}" size="24" options="rotation:counterclock" ng-click="hitLike()"></ng-md-icon>
                     </md-button>
-                    <md-button class="md-icon-button" aria-label="Settings">
-                        <md-icon md-font-set="md">menu</md-icon>
+                    <span>1</span>
+                    <md-button class="md-icon-button" aria-label="visibility">
+                        <md-icon md-font-set="md">visibility</md-icon>
                     </md-button>
-                    <md-button class="md-icon-button" aria-label="Share">
-                        <md-icon md-font-set="md">share-arrow</md-icon>
+                    <span>1</span>
+                    <md-button class="md-icon-button" aria-label="timeline">
+                        <md-icon md-font-set="md">timeline</md-icon>
                     </md-button>
                 </md-card-actions>
             </md-card>
         </div>
     </div>
-    <!--    </div>
-  </md-content> -->
-    <!--<div class="row">
-        <div class="col-sm-6">
-            <md-card md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch id="card">
-                <md-card-content>
-                    <p>
-                        The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-                        two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-                    </p>
-                </md-card-content>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-icon-button" aria-label="Favorite" id="favorite">
-                        <md-icon md-font-set="md">favorite</md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" aria-label="Settings">
-                        <md-icon md-font-set="md">menu</md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" aria-label="Share">
-                        <md-icon md-font-set="md">share-arrow</md-icon>
-                    </md-button>
-                </md-card-actions>
-            </md-card>
-        </div>
-    </div> -->
+
+    <md-fab-speed-dial id="fab">
+        <md-fab-trigger>
+            <md-button aria-label="add" class="md-fab md-warn" id="fab-button">
+                <md-icon md-font-set="md">add</md-icon>
+            </md-button>
+        </md-fab-trigger>
+    </md-fab-speed-dial>
 
 </div>

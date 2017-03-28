@@ -53,12 +53,13 @@ ul {
 }
 #card {
     border-radius: 6px;
+    width: 450px;
 }
 .oddflex {
-    margin-left: ;
+    margin-left:70px ;
 }
 .evenflex {
-    margin-left: ;
+    margin-right:10px ;
 }
 md-card-content{
     height: 150px;
@@ -102,4 +103,59 @@ md-card md-card-header {
 }
 .gibson_orange {
     background-color: #EC4438;
+}
+span {
+    font-family: 'Roboto', sans-serif;
+    color: rgba(119, 115, 115, 0.87);
+}
+.heart {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+  animation: fave-heart 1s steps(28);
+}
+.heart:hover {
+  background-position: -2800px 0;
+  transition: background 1s steps(28);
+}
+@keyframes fave-heart {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -2800px 0;
+  }
+}
+
+.fabSpeedDialdemoBasicUsage .text-capitalize {
+  text-transform: capitalize; }
+
+.fabSpeedDialdemoBasicUsage .md-fab:hover, .fabSpeedDialdemoBasicUsage .md-fab.md-focused {
+  background-color: #000 !important; }
+
+.fabSpeedDialdemoBasicUsage p.note {
+  font-size: 1.2rem; }
+
+.fabSpeedDialdemoBasicUsage .lock-size {
+  min-width: 300px;
+  min-height: 300px;
+  width: 300px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto
+}
+#fab {
+   position: fixed;
+   bottom: 0;
+   right: 0;
+   left:0;
+}
+#fab-button {
+    background-color: rgba(0, 0, 0, 0.54);
 }

@@ -31,7 +31,23 @@
             },
             {
                 past: 'red'
+            },
+            {
+                past: 'ultra'
+            },
+            {
+                past: 'nice-green'
+            },
+            {
+                past: 'orange',
             }
         ];
+
+
+        // Execute When User Like or Dislike Thought
+        dash.hitLike = function() {
+            dash.change = 'red';
+        }
+
     }
 })();

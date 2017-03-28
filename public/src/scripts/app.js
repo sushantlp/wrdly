@@ -20,4 +20,5 @@
         'pascalprecht.translate',
         'oc.lazyLoad',
         'angular-loading-bar',
+        'ngMdIcons',
     ]);
