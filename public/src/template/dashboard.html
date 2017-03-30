@@ -8,8 +8,8 @@
 
     <div class="row">
         <div class="col-sm-5" ng-repeat="item in dashCtrl.content" ng-class-odd="'oddflex'" ng-class-even="'evenflex'">
-            <md-card md-theme-watch id="card" >
-                 <md-card-header id="main-card">
+            <md-card md-theme-watch id="card" md-ink-ripple="{{item.color}}">
+                 <md-card-header id="main-card" >
                      <div id="card-header" ng-class="{fiesta: item.past == 'fish', golden_yellow: item.past == 'yellow', atom_green: item.past == 'green', gibson_red: item.past == 'red', sea_blue: item.past == 'blue', ultra_marine: item.past == 'ultra', nice_green: item.past == 'nice-green', gibson_orange: item.past == 'orange'}"></div>
                  </md-card-header>
                 <md-card-content >
@@ -20,17 +20,15 @@
                 </md-card-content>
 
                 <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-icon-button" aria-label="favorite" id="favorite">
-                       <ng-md-icon icon="favorite" ng-style="{fill:dashCtrl.change}" size="24" options="rotation:counterclock" ng-click="hitLike()"></ng-md-icon>
+                    <md-button class="md-icon-button" aria-label="favorite">
+                       <ng-md-icon icon="favorite" ng-style="{fill:dashCtrl.change}" size="28" options="rotation:counterclock" ng-click="dashCtrl.hitLike()"></ng-md-icon>
                     </md-button>
-                    <span>1</span>
+                     <span class="badge bg-dark pos-rlt m-r-xs"><b class="arrow left b-dark pull-in"></b>2</span>
                     <md-button class="md-icon-button" aria-label="visibility">
-                        <md-icon md-font-set="md">visibility</md-icon>
+                        <!--<md-icon md-font-set="md" id="icon">visibility</md-icon> -->
+                         <ng-md-icon icon="visibility" style="fill:grey" size="28" options="rotation:counterclock"></ng-md-icon>
                     </md-button>
-                    <span>1</span>
-                    <md-button class="md-icon-button" aria-label="timeline">
-                        <md-icon md-font-set="md">timeline</md-icon>
-                    </md-button>
+                     <span class="badge bg-dark pos-rlt m-r-xs"><b class="arrow left b-dark pull-in"></b>4</span>
                 </md-card-actions>
             </md-card>
         </div>
@@ -38,8 +36,11 @@
 
     <md-fab-speed-dial id="fab">
         <md-fab-trigger>
-            <md-button aria-label="add" class="md-fab md-warn" id="fab-button">
+            <md-button aria-label="add" class="md-fab md-warn" id="fab-button" ng-click="dashCtrl.showPrompt($event)">
                 <md-icon md-font-set="md">add</md-icon>
+                <md-tooltip md-visible="hide.showTooltip">
+                    <p>Knock</p>
+                </md-tooltip>
             </md-button>
         </md-fab-trigger>
     </md-fab-speed-dial>
