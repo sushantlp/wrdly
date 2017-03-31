@@ -15,58 +15,69 @@
 
     function DashboardController(RestfullApi,$mdDialog) {
         var dash = this;
-        dash.change = 'grey';
+        dash.changeColor = '#a7a3a3';
+
         dash.content = [
             {
                 past: 'fish',
-                color: '#ff6686'
+                color: '#ff6686',
+                theme:'Story'
             },
             {
                 past: 'yellow',
-                color: '#ffc555'
+                color: '#ffc555',
+                theme:'Poem'
             },
             {
                 past: 'green',
-                color: '#33DAA0'
+                color: '#33DAA0',
+                theme:'Lyrics'
             },
             {
                 past: 'blue',
-                color: '#21e8ea'
+                color: '#21e8ea',
+                theme:'Comdey'
             },
             {
                 past: 'red',
-                color: '#D52735'
+                color: '#D52735',
+                theme:'Drama'
             },
             {
                 past: 'ultra',
-                color: '#7b53fc'
+                color: '#7b53fc',
+                theme:'Sci-fi'
             },
             {
                 past: 'nice-green',
-                color: '#65A026'
+                color: '#65A026',
+                theme:'Adventure'
             },
             {
                 past: 'orange',
-                color: '#ff6686'
+                color: '#ff6686',
+                theme:'Art'
             }
         ];
 
 
         // Execute When User Like or Dislike Thought
-        dash.hitLike = function() {
-            dash.change = '#FF6666';
+        dash.hitLike = function(flag) {
+            console.log(flag);
+            if(flag == 1) {
+                dash.changeColor = '#FF6666';
+            } else if(flag == 2) {
+                dash.changeColor = '#33DAA0';
+            } else {
+                dash.changeColor = '#a7a3a3';
+            }
         }
 
-        dash.showPrompt = function() {
+    /*    dash.showPrompt = function() {
             swal({
                 input: 'textarea',
                 showCancelButton: true,
                 inputPlaceholder: 'Your words here...',
-                inputAttributes: {
-    'maxlength': 200,
-    'autocapitalize': 'off',
-    'autocorrect': 'off'
-},
                 width: 800,
                 padding: 100,
                 html:
@@ -76,6 +87,6 @@
                     swal(text)
                 }
             })
-        };
+        }; */
     }
 })();

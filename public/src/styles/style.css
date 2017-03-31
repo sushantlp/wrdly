@@ -142,6 +142,13 @@ span {
 #fab-button {
     background-color: rgba(255, 102, 134, 0.80);
 }
-#icon {
-    margin-left: 5px;
+#favorite {
+    margin-left:5px;
+}
+.theme {
+    font-size: 15px;
+    font-family: 'Roboto';
+    text-transform: capitalize;
+    font-weight: 400;
+    margin-right: 200px;
 }

@@ -8,6 +8,7 @@
 
     <div class="row">
         <div class="col-sm-5" ng-repeat="item in dashCtrl.content" ng-class-odd="'oddflex'" ng-class-even="'evenflex'">
+        <!--    <a href="#"> -->
             <md-card md-theme-watch id="card" md-ink-ripple="{{item.color}}">
                  <md-card-header id="main-card" >
                      <div id="card-header" ng-class="{fiesta: item.past == 'fish', golden_yellow: item.past == 'yellow', atom_green: item.past == 'green', gibson_red: item.past == 'red', sea_blue: item.past == 'blue', ultra_marine: item.past == 'ultra', nice_green: item.past == 'nice-green', gibson_orange: item.past == 'orange'}"></div>
@@ -20,17 +21,29 @@
                 </md-card-content>
 
                 <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-icon-button" aria-label="favorite">
-                       <ng-md-icon icon="favorite" ng-style="{fill:dashCtrl.change}" size="28" options="rotation:counterclock" ng-click="dashCtrl.hitLike()"></ng-md-icon>
+
+                    <md-button layout-align="end left">
+                        <h5 class="theme" ng-style="{color:item.color}">{{item.theme}}</h5>
                     </md-button>
-                     <span class="badge bg-dark pos-rlt m-r-xs"><b class="arrow left b-dark pull-in"></b>2</span>
-                    <md-button class="md-icon-button" aria-label="visibility">
-                        <!--<md-icon md-font-set="md" id="icon">visibility</md-icon> -->
-                         <ng-md-icon icon="visibility" style="fill:grey" size="28" options="rotation:counterclock"></ng-md-icon>
+                    <md-button class="md-icon-button" aria-label="favorite">
+                       <ng-md-icon icon="favorite" ng-style="{fill:dashCtrl.changeColor}" size="28" options="rotation:counterclock" ng-click="dashCtrl.hitLike(1)"></ng-md-icon>
+                       <md-tooltip md-visible="hide.showTooltip" md-direction="top">
+                           <p>Like Please</p>
+                       </md-tooltip>
+                    </md-button>
+                     <span class="badge bg-dark pos-rlt m-r-xs" id="favorite"><b class="arrow left b-dark pull-in"></b>2</span>
+
+                    <md-button class="md-icon-button" aria-label="camera_alt">
+                         <ng-md-icon icon="camera_alt" ng-style="{fill:dashCtrl.changeColor}" size="28" options="rotation:counterclock" ng-click="dashCtrl.hitLike(2)" id="camera"></ng-md-icon>
+                         <md-tooltip md-visible="hide.showTooltip" md-direction="top">
+                             <p>Suscribe Please</p>
+                         </md-tooltip>
                     </md-button>
                      <span class="badge bg-dark pos-rlt m-r-xs"><b class="arrow left b-dark pull-in"></b>4</span>
+
                 </md-card-actions>
             </md-card>
+        <!--</a>  -->
         </div>
     </div>
 
