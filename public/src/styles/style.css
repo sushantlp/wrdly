@@ -11,19 +11,19 @@
 .heavy {
     margin-top: 40px;
 }
-.autocomplete {
-
-}
 #tab1-next-btn {
     background-color: #ff6686;
     float: right;
 }
+
 #tab2-prev-btn {
     background-color: #7b53fc;
 }
+
 .tab2-last-div {
     margin-top: 30px;
 }
+
 h4 {
     padding-bottom: 40px;
 }
@@ -106,7 +106,7 @@ md-card md-card-header {
 }
 span {
     font-family: 'Roboto', sans-serif;
-    color: rgba(119, 115, 115, 0.87);
+/*    color: rgba(119, 115, 115, 0.87); */
 }
 .heart {
   width: 80px;
@@ -151,4 +151,46 @@ span {
     text-transform: capitalize;
     font-weight: 400;
     margin-right: 200px;
+}
+.modal-color-header {
+    height: 5px;
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+    margin-bottom: 20px;
+/*    background-color: #ffc555;  */
+}
+.modal-header {
+    padding: 0px;
+}
+
+.modal-content {
+    margin-top: 25%;
+}
+.modal-body {
+    padding: 0px;
+}
+#poem-btn {
+    background-color: #ffc555;
+}
+#comdey-btn {
+    background-color: #21e8ea;
+}
+#story-btn {
+    background-color: #ff6686;
+}
+#lyrics-btn {
+    background-color: #33DAA0;
+}
+#drama-btn {
+    background-color: #D52735;
+}
+#sci-fi-btn {
+    background-color: #7b53fc;
+    margin-right: 150px;
+}
+#modal-header-title {
+    margin-left: 5px;
+    font-size: 25px;
+    font-family: 'Dosis', sans-serif;
+    color: rgba(119, 115, 115, 0.87);
 }

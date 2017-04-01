@@ -8,7 +8,6 @@
 
     <div class="row">
         <div class="col-sm-5" ng-repeat="item in dashCtrl.content" ng-class-odd="'oddflex'" ng-class-even="'evenflex'">
-        <!--    <a href="#"> -->
             <md-card md-theme-watch id="card" md-ink-ripple="{{item.color}}">
                  <md-card-header id="main-card" >
                      <div id="card-header" ng-class="{fiesta: item.past == 'fish', golden_yellow: item.past == 'yellow', atom_green: item.past == 'green', gibson_red: item.past == 'red', sea_blue: item.past == 'blue', ultra_marine: item.past == 'ultra', nice_green: item.past == 'nice-green', gibson_orange: item.past == 'orange'}"></div>
@@ -22,9 +21,8 @@
 
                 <md-card-actions layout="row" layout-align="end center">
 
-                    <md-button layout-align="end left">
-                        <h5 class="theme" ng-style="{color:item.color}">{{item.theme}}</h5>
-                    </md-button>
+                    <h5 class="theme" ng-style="{color:item.color}">{{item.theme}}</h5>
+
                     <md-button class="md-icon-button" aria-label="favorite">
                        <ng-md-icon icon="favorite" ng-style="{fill:dashCtrl.changeColor}" size="28" options="rotation:counterclock" ng-click="dashCtrl.hitLike(1)"></ng-md-icon>
                        <md-tooltip md-visible="hide.showTooltip" md-direction="top">
@@ -43,13 +41,12 @@
 
                 </md-card-actions>
             </md-card>
-        <!--</a>  -->
         </div>
     </div>
 
     <md-fab-speed-dial id="fab">
         <md-fab-trigger>
-            <md-button aria-label="add" class="md-fab md-warn" id="fab-button" ng-click="dashCtrl.showPrompt($event)">
+            <md-button aria-label="add" class="md-fab md-warn" id="fab-button" ng-click="dashCtrl.open()">
                 <md-icon md-font-set="md">add</md-icon>
                 <md-tooltip md-visible="hide.showTooltip">
                     <p>Knock</p>
@@ -58,4 +55,7 @@
         </md-fab-trigger>
     </md-fab-speed-dial>
 
+    <script type="text/ng-template" id="myModalContent.html">
+           <div ng-include="'src/template/modal.html'"></div>
+    </script>
 </div>
