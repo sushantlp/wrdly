@@ -18,34 +18,39 @@
     function ModalInstanceCtrl($modalInstance,items,$scope,$interval) {
 
         $scope.items = items;
+        $scope.magic = '#FFFFFF';
+
         $scope.selected = {
             item: $scope.items[0]
         };
-        $scope.ok = function () {
+
+        $scope.ok = function() {
             $modalInstance.close($scope.selected.item);
         };
 
-        $scope.cancel = function () {
+        $scope.cancel = function() {
             $modalInstance.dismiss('cancel');
         };
 
-        $scope.mode = 'query';
-        $scope.determinateValue = 30;
-        $scope.determinateValue2 = 30;
+        $scope.colorEffect = function(value) {
 
-        $interval(function() {
-            $scope.determinateValue += 1;
-            $scope.determinateValue2 += 1.5;
-            if($scope.determinateValue > 100) {
-            //    $scope.determinateValue = 30;
-            //    $scope.determinateValue2 = 30;
-                    $modalInstance.dismiss('cancel');
+            if(value === 'story') {
+                $scope.magic = value;
+            } else if(value === 'poem') {
+                $scope.magic =  value;
+            } else if(value === 'lyrics') {
+                $scope.magic = value;
+            } else if(value === 'comdey') {
+                $scope.magic = value;
+            } else if(value === 'drama') {
+                $scope.magic = value;
+            } else if(value === 'science') {
+                $scope.magic = value;
+            } else {
+                    console.log("hell2");
+                $scope.magic = '#FFFFFF';
             }
-        }, 100, 0, true);
-
-        $interval(function() {
-            $scope.mode = ($scope.mode == 'query' ? 'determinate' : 'query');
-        }, 7200, 0, true);
+        }
     }
 
     function DashboardController(RestfullApi,$mdDialog,$modal) {

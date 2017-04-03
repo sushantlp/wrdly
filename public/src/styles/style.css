@@ -142,8 +142,18 @@ span {
 #fab-button {
     background-color: rgba(255, 102, 134, 0.80);
 }
+#fab-button-modal {
+    background-color: rgba(0, 0, 0, 0.40);
+}
 #favorite {
     margin-left:5px;
+}
+#loc {
+    margin-top: 6px;
+    width:100%;
+    border-width:1px;
+    border-style: solid ;
+    border-color: #cfd1d4;
 }
 .theme {
     font-size: 15px;
@@ -152,12 +162,11 @@ span {
     font-weight: 400;
     margin-right: 200px;
 }
-.modal-color-header {
+#modal-color-header {
     height: 5px;
     width: 100%;
     border-radius: 6px 6px 0 0;
     margin-bottom: 20px;
-/*    background-color: #ffc555;  */
 }
 .modal-header {
     padding: 0px;
@@ -168,6 +177,10 @@ span {
 }
 .modal-body {
     padding: 0px;
+}
+.modal-footer {
+    padding: 0px;
+    padding-top: 6px;
 }
 #poem-btn {
     background-color: #ffc555;
@@ -180,17 +193,21 @@ span {
 }
 #lyrics-btn {
     background-color: #33DAA0;
+    margin-right: 30px;
 }
 #drama-btn {
     background-color: #D52735;
 }
 #sci-fi-btn {
     background-color: #7b53fc;
-    margin-right: 150px;
+    margin-right: 170px;
 }
 #modal-header-title {
     margin-left: 5px;
     font-size: 25px;
     font-family: 'Dosis', sans-serif;
     color: rgba(119, 115, 115, 0.87);
+}
+#modal-add {
+    
 }

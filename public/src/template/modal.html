@@ -1,20 +1,32 @@
 
 <div class="modal-header">
-    <div class="modal-color-header">
-        <md-progress-linear md-mode="indeterminate" class="m-b"></md-progress-linear
-    </div>
+    <div id="modal-color-header" ng-class="{fiesta: magic == 'story', golden_yellow: magic == 'poem', atom_green: magic == 'lyrics', gibson_red: magic == 'drama', sea_blue: magic == 'comdey', ultra_marine: magic == 'science'}"></div>
     <h3 class="modal-title" id="modal-header-title">Write your ideas down.</h3>
 </div>
 <div class="modal-body">
     <textarea class="form-control" id="message-text" rows="10" cols="100"></textarea>
+    <div></div>
 </div>
 <div class="modal-footer">
 <!--    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
     <button class="btn btn-primary" ng-click="ok()">OK</button> -->
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="poem-btn">Poem</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="comdey-btn">Comdey</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="story-btn">Story</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="lyrics-btn">Lyrics</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="drama-btn">Drama</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="sci-fi-btn">Sci-fi</md-button>
+    <md-button class="md-raised md-accent btn-fw m-b-sm" id="poem-btn" ng-click="colorEffect('poem')">Poem</md-button>
+    <md-button class="md-raised md-accent btn-fw m-b-sm" id="comdey-btn" ng-click="colorEffect('comdey')">Comdey</md-button>
+    <md-button class="md-raised md-accent btn-fw m-b-sm" id="story-btn" ng-click="colorEffect('story')">Story</md-button>
+    <md-button class="md-raised md-accent btn-fw m-b-sm" id="lyrics-btn" ng-click="colorEffect('lyrics')">Lyrics</md-button>
+    <md-button class="md-raised md-accent btn-fw m-b-sm" id="drama-btn" ng-click="colorEffect('drama')">Drama</md-button>
+    <md-button class="md-raised md-accent btn-fw m-b-sm" id="sci-fi-btn" ng-click="colorEffect('science')">Sci-fi</md-button>
+    <div id="loc"></div>
+
+    <md-fab-speed-dial id="modal-add">
+        <md-fab-trigger>
+            <md-button aria-label="add" class="md-fab md-warn" id="fab-button-modal" ng-click="dashCtrl.open()">
+                <md-icon md-font-set="md">add</md-icon>
+                <md-tooltip md-visible="hide.showTooltip">
+                    <p>Add Please</p>
+                </md-tooltip>
+            </md-button>
+        </md-fab-trigger>
+    </md-fab-speed-dial>
+
 </div>
