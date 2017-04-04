@@ -19,6 +19,7 @@
 
         $scope.items = items;
         $scope.magic = '#FFFFFF';
+        $scope.counter = 270;
 
         $scope.selected = {
             item: $scope.items[0]
@@ -47,8 +48,24 @@
             } else if(value === 'science') {
                 $scope.magic = value;
             } else {
-                    console.log("hell2");
                 $scope.magic = '#FFFFFF';
+            }
+        }
+
+        $scope.calculateText = function(event) {
+
+            if(event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 127) {
+                if($scope.counter == 270) {
+                    return true;
+                }
+                $scope.counter = $scope.counter + 1;
+            } else if(event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40) {
+                return true;
+            } else {
+                if($scope.counter == 0) {
+                    return true;
+                }
+                $scope.counter = $scope.counter - 1;
             }
         }
     }
@@ -118,7 +135,6 @@
 
             modalInstance.result.then(function (selectedItem) {
                 dash.selected = selectedItem;
-                console.log("Surprise");
             }, function () {
                 console.log('Modal dismissed at: ' + new Date());
             });

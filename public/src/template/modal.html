@@ -4,8 +4,8 @@
     <h3 class="modal-title" id="modal-header-title">Write your ideas down.</h3>
 </div>
 <div class="modal-body">
-    <textarea class="form-control" id="message-text" rows="10" cols="100"></textarea>
-    <div></div>
+    <textarea  rows="9" cols="45" placeholder="Your word here..." id="textarea" maxlength="270" ng-keydown="calculateText($event)"></textarea>
+    <span class="badge" id="modal-counter">{{counter}}</span>
 </div>
 <div class="modal-footer">
 <!--    <button class="btn btn-default" ng-click="cancel()">Cancel</button>

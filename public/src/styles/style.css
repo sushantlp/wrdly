@@ -173,10 +173,13 @@ span {
 }
 
 .modal-content {
-    margin-top: 25%;
+    margin-top: 16%;
 }
 .modal-body {
     padding: 0px;
+    border-width:1px;
+    border-style: solid;
+    border-color: #cfd1d4;
 }
 .modal-footer {
     padding: 0px;
@@ -208,6 +211,20 @@ span {
     font-family: 'Dosis', sans-serif;
     color: rgba(119, 115, 115, 0.87);
 }
-#modal-add {
-    
+#textarea {
+    font-size: 20px;
+    font-family: 'Roboto';
+    text-transform: capitalize;
+    overflow: hidden;
+    border:none;
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+#modal-counter{
+    margin-bottom: 5px;
+    margin-left: 3px;
+}
+#card-content-idea {
+    text-align: center;
 }
