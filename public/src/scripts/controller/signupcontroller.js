@@ -1,53 +1,83 @@
 (function () {
 
     'use strict';
+
     angular.module('wrdly')
     .controller('SignUpController', SignUpController)
     .controller('ProfileController', ProfileController);
-    
 
-    SignUpController.$inject = ['RestfullApi','$state'];
+
+    SignUpController.$inject = ['RestfullApi','$state','CommonLogic'];
     ProfileController.$inject = ['$timeout','$q'];
 
     // Signup Controller
-    function SignUpController(RestfullApi,$state) {
+    function SignUpController(RestfullApi,$state,CommonLogic) {
+
         var signupCtrl = this;
 
         // When Signup Form Submit this Function Call
-        signupCtrl.submitFunction = function() {
+        signupCtrl.submitFunction = function () {
+
             // Signup Api
-            var apiUrl = '/api/v1/user/signup'
+            var apiUrl = '/api/v1/user/signup';
+
+            // Create a Pseudoclassical Class Patterns Service for Api Call Logic
+            var apiCall = new RestfullApi(apiUrl); // Pass Api
+            var logic = new CommonLogic();
+
+            // Call Circular Dialog 
+
+            // Variable
+            var empty = "";
 
             // Two Way Binding
             var userName = signupCtrl.userName;
             var userEmail = signupCtrl.userEmail;
             var userPassword = signupCtrl.userPassword;
 
+            // Validate Name Email Password
+            if (userName == undefined || userName == empty) {
 
-            console.log(userName);
-            console.log(userEmail);
-            console.log(userPassword);
-            // Create a Pseudoclassical Class Patterns Service for Api Call Logic
-            var apiCall = new RestfullApi(apiUrl); // Pass Api
+            } else if (userEmail == undefined || userEmail == empty) {
+
+            } else if (userPassword == undefined || userPassword == empty) {
+
+            }
+
+
+            /*signupCtrl.activated = true;
+            signupCtrl.determinateValue = 30;
+
+            // Iterate every 100ms, non-stop and increment
+            // the Determinate loader.
+            $interval(function() {
+
+                signupCtrl.determinateValue += 1;
+                if (signupCtrl.determinateValue > 100) {
+                    signupCtrl.determinateValue = 30;
+                }
+
+            }, 100); */
+
+
 
             // Call
             var promise = apiCall.callSignupApi(userName,userEmail,userPassword);
             promise.then(function(response) {
-                if(angular.isObject(response)) {
-                    if(response.data.hasOwnProperty('wrdly_success')) {
-                        swal("Good job!", "You clicked the button!", "success")
-                         $state.go('autopilot.addmanageautopilot');
-                    } else if(response.data.hasOwnProperty('wrdly_half_success')) {
-                        swal("Good job!", "You clicked the button!", "success")
-                         $state.go('signin');
+                if (angular.isObject(response)) {
+                    if (response.data.hasOwnProperty('wrdly_success')) {
+                         //swal("Good job!", "You clicked the button!", "success")
+
+                    } else if (response.data.hasOwnProperty('wrdly_half_success')) {
+                         //$state.go('signin');
                     } else {
-                        swal("Good job!", "You clicked the button!", "success")
+
                     }
                 } else {
-                    swal("Good job!", "You clicked the button!", "success")
+
                 }
             })
-            .catch(function (error) {
+            .catch (function (error) {
                 console.log(error);
             })
         }

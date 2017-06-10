@@ -74,6 +74,13 @@
                 templateUrl: RELATIVEPATH + 'dashboard.html',
                 controller: 'DashboardController',
                 controllerAs: 'dashCtrl',
+            })
+
+            .state('app.timeline', {
+                url: '/timeline',
+                templateUrl: RELATIVEPATH + 'timeline.html',
+                controller: 'TimelineController',
+                controllerAs: 'timeCtrl',
             });
     };
 })();

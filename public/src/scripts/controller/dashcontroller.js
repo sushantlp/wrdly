@@ -19,7 +19,7 @@
 
         $scope.items = items;
         $scope.magic = '#FFFFFF';
-        $scope.counter = 270;
+        $scope.counter = 200;
 
         $scope.selected = {
             item: $scope.items[0]
@@ -50,12 +50,12 @@
             } else {
                 $scope.magic = '#FFFFFF';
             }
-        }
+        };
 
         $scope.calculateText = function(event) {
 
             if(event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 127) {
-                if($scope.counter == 270) {
+                if($scope.counter == 200) {
                     return true;
                 }
                 $scope.counter = $scope.counter + 1;
@@ -67,7 +67,7 @@
                 }
                 $scope.counter = $scope.counter - 1;
             }
-        }
+        };
     }
 
     function DashboardController(RestfullApi,$mdDialog,$modal) {
@@ -78,32 +78,37 @@
             {
                 past: 'fish',
                 color: '#ff6686',
-                theme:'Story'
+                theme:'Story',
+                paragraph: 'In publishing, art, and communication, content is the information and experience(s) that is directed towards an end-user or audience',
             },
             {
                 past: 'yellow',
                 color: '#ffc555',
-                theme:'Poem'
+                theme:'Poem',
+                paragraph: 'A paragraph consists of one or more sentences.[1][2] Though not required by the syntax of any language, paragraphs are usually an expected part of formal writing, used to organize longer prose'
             },
             {
                 past: 'green',
                 color: '#33DAA0',
-                theme:'Lyrics'
+                theme:'Lyrics',
+                paragraph: 'The oldest classical Greek and Latin writing had little or no space between words and could be written in boustrophedon (alternating directions). Over time, text direction (left to right) became standardized, and word dividers and terminal punctuation became common'
             },
             {
                 past: 'blue',
                 color: '#21e8ea',
-                theme:'Comdey'
+                theme:'Comdey',
+                paragraph: 'In ancient manuscripts, another means to divide sentences into paragraphs was a line break (newline) followed by an initial at the beginning of the next paragraph'
             },
-            {
-                past: 'orange',
+            {   past: 'orange',
                 color: '#D52735',
-                theme:'Drama'
+                theme:'Drama',
+                paragraph: 'In ancient manuscripts, another means to divide sentences into paragraphs was a line break (newline) followed by an initial at the beginning of the next paragraph'
             },
             {
                 past: 'ultra',
                 color: '#7b53fc',
-                theme:'Sci-fi'
+                theme:'Sci-fi',
+                paragraph: 'In ancient manuscripts, another means to divide sentences into paragraphs was a line break (newline) followed by an initial at the beginning of the next paragraph'
             }
         ];
 
@@ -117,7 +122,7 @@
             } else {
                 dash.changeColor = '#a7a3a3';
             }
-        }
+        };
 
         dash.items = ['item1', 'item2', 'item3'];
         dash.open = function (size) {

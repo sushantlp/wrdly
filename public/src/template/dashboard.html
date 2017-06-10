@@ -9,14 +9,11 @@
     <div class="row">
         <div class="col-sm-5" ng-repeat="item in dashCtrl.content" ng-class-odd="'oddflex'" ng-class-even="'evenflex'">
             <md-card md-theme-watch id="card" md-ink-ripple="{{item.color}}">
-                 <md-card-header id="main-card" >
-                     <div id="card-header" ng-class="{fiesta: item.past == 'fish', golden_yellow: item.past == 'yellow', atom_green: item.past == 'green', gibson_red: item.past == 'red', sea_blue: item.past == 'blue', ultra_marine: item.past == 'ultra', nice_green: item.past == 'nice-green', gibson_orange: item.past == 'orange'}"></div>
+                 <md-card-header>
+                     <div id="dash-card-header" ng-class="{fiesta: item.past == 'fish', golden_yellow: item.past == 'yellow', atom_green: item.past == 'green', gibson_red: item.past == 'red', sea_blue: item.past == 'blue', ultra_marine: item.past == 'ultra', nice_green: item.past == 'nice-green', gibson_orange: item.past == 'orange'}"></div>
                  </md-card-header>
                 <md-card-content >
-                    <p id="card-content-idea">
-                        The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-                        two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-                    </p>
+                    <p id="card-content-idea">{{item.paragraph}}</p>
                 </md-card-content>
 
                 <md-card-actions layout="row" layout-align="end center">

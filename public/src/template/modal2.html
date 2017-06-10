@@ -1,22 +1,13 @@
 
 <div class="modal-header">
     <div id="modal-color-header" ng-class="{fiesta: magic == 'story', golden_yellow: magic == 'poem', atom_green: magic == 'lyrics', gibson_red: magic == 'drama', sea_blue: magic == 'comdey', ultra_marine: magic == 'science'}"></div>
-    <h3 class="modal-title" id="modal-header-title">write your ideas down.</h3>
-    {{magic}}
+    <h3 class="modal-title" id="modal-header-title">Write your ideas down.</h3>
 </div>
 <div class="modal-body">
     <textarea  rows="9" cols="45" placeholder="Your word here..." id="textarea" maxlength="200" ng-keydown="calculateText($event)"></textarea>
     <span class="badge" id="modal-counter">{{counter}}</span>
 </div>
 <div class="modal-footer">
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="poem-btn" ng-click="colorEffect('poem')">Poem</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="comdey-btn" ng-click="colorEffect('comdey')">Comdey</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="story-btn" ng-click="colorEffect('story')">Story</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="lyrics-btn" ng-click="colorEffect('lyrics')">Lyrics</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="drama-btn" ng-click="colorEffect('drama')">Drama</md-button>
-    <md-button class="md-raised md-accent btn-fw m-b-sm" id="sci-fi-btn" ng-click="colorEffect('science')">Sci-fi</md-button>
-    <div id="loc"></div>
-
     <md-fab-speed-dial id="modal-add">
         <md-fab-trigger>
             <md-button aria-label="add" class="md-fab md-warn" id="fab-button-modal" ng-click="dashCtrl.open()">
