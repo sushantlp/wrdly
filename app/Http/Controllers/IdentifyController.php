@@ -47,7 +47,11 @@ class IdentifyController extends ApiController
 
           $check = json_decode(json_encode($check),true);
           if(!empty($check)) {
-              return $this->respondWithMessage("You already signup! please login");
+              if($check['email_active'] == 1) {
+                  return $this->respondWithMessage("You have already signup! please login");
+              } else {
+                  return $this->respondWithMessage("You have already signup! please verify your email");
+              }
           }
 
           // Insert User Detail in User Table
@@ -167,7 +171,6 @@ class IdentifyController extends ApiController
             // Put User Email in Session
             $session = $this->loginSession($request,$email);
 
-            $arr['Primary_Id'] = $verify['user_id'];
             $arr['User_Name'] = $verify['name'];
             $arr['User_Mobile'] = $verify['mobile'];
             $arr['User_Email'] = $verify['email'];

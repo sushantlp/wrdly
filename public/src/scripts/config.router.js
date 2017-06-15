@@ -7,12 +7,25 @@
     .run(routeRun)
     .config(routeConfig);
 
-    routeRun.$inject = ['$rootScope', '$state', '$stateParams'];
+    routeRun.$inject = ['$rootScope', '$state', '$stateParams', 'CommonService', '$location'];
     routeConfig.$inject = ['$stateProvider','$urlRouterProvider','RELATIVEPATH'];
 
-    function routeRun($rootScope,$state,$stateParams) {
+    function routeRun($rootScope, $state, $stateParams, CommonService, $location) {
+
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
+
+
+        $rootScope.$on('$stateChangeSuccess', function(event) {
+
+            var auth = CommonService.isAuthenticated();
+            if(auth) {
+                $state.go('signin');
+                event.preventDefault();
+                return;
+            }
+        });
+
     }
 
     function routeConfig($stateProvider,$urlRouterProvider,RELATIVEPATH) {

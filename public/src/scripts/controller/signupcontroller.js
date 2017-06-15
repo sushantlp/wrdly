@@ -7,11 +7,11 @@
     .controller('ProfileController', ProfileController);
 
 
-    SignUpController.$inject = ['RestfullApi','$state','CommonLogic'];
-    ProfileController.$inject = ['$timeout','$q'];
+    SignUpController.$inject = ['RestfullApi','CommonService'];
+    ProfileController.$inject = ['$timeout','$q','CommonService'];
 
     // Signup Controller
-    function SignUpController(RestfullApi,$state,CommonLogic) {
+    function SignUpController(RestfullApi,CommonService) {
 
         var signupCtrl = this;
 
@@ -23,9 +23,9 @@
 
             // Create a Pseudoclassical Class Patterns Service for Api Call Logic
             var apiCall = new RestfullApi(apiUrl); // Pass Api
-            var logic = new CommonLogic();
 
-            // Call Circular Dialog 
+            // Open Circular Dialog
+            CommonService.circularDialogOpen();
 
             // Variable
             var empty = "";
@@ -42,49 +42,53 @@
 
             } else if (userPassword == undefined || userPassword == empty) {
 
-            }
+            } else {
 
+                // Call
+                var promise = apiCall.callSignupApi(userName,userEmail,userPassword);
+                promise.then(function(response) {
+                    if (angular.isObject(response)) {
 
-            /*signupCtrl.activated = true;
-            signupCtrl.determinateValue = 30;
+                        // Close Circular Dialog
+                        CommonService.circularDialogClose();
 
-            // Iterate every 100ms, non-stop and increment
-            // the Determinate loader.
-            $interval(function() {
+                        if (response.data.hasOwnProperty('wrdly_success')) {
 
-                signupCtrl.determinateValue += 1;
-                if (signupCtrl.determinateValue > 100) {
-                    signupCtrl.determinateValue = 30;
-                }
+                             // Open Toaster
+                             CommonService.showAlert('Successful registration. please verify your email', 'Wrdly', 'verify' ,'signin' ,'Verify' ,'Login');
 
-            }, 100); */
+                        } else if (response.data.hasOwnProperty('wrdly_half_success')) {
 
+                            // Open Dialog
+                            CommonService.showAlert(response.data.wrdly_half_success.wrdly, 'Wrdly', 'signin', 'signup', 'Go', 'Stay');
+                        } else {
 
-
-            // Call
-            var promise = apiCall.callSignupApi(userName,userEmail,userPassword);
-            promise.then(function(response) {
-                if (angular.isObject(response)) {
-                    if (response.data.hasOwnProperty('wrdly_success')) {
-                         //swal("Good job!", "You clicked the button!", "success")
-
-                    } else if (response.data.hasOwnProperty('wrdly_half_success')) {
-                         //$state.go('signin');
+                            // Open Toaster
+                            CommonService.showActionToast(response.data.wrdly_error.wrdly);
+                        }
                     } else {
 
-                    }
-                } else {
+                        // Close Circular Dialog
+                        CommonService.circularDialogClose();
 
-                }
-            })
-            .catch (function (error) {
-                console.log(error);
-            })
-        }
+                        // Open Toaster
+                        CommonService.showActionToast('Please try again later');
+                    }
+                })
+                .catch (function (error) {
+
+                    // Close Circular Dialog
+                    CommonService.circularDialogClose();
+
+                    // Open Toaster
+                    CommonService.showActionToast('Please try again later');
+                });
+            }
+        };
 
     }
 
-    function ProfileController($timeout,$q) {
+    function ProfileController($timeout,$q,CommonService) {
         var self = this;
 
         self.simulateQuery = true;
@@ -92,7 +96,7 @@
         self.template = 'src/template/content.html';
 
         // list of `state` value/display objects
-        self.states        = loadAll();
+        self.states        = stateAll();
         self.querySearch   = querySearch;
         self.selectedItemChange = null;
         self.searchTextChange   = null;
@@ -113,14 +117,8 @@
         }
 
         // Build `states` list of key/value pairs
-        function loadAll() {
-            var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
-                Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
-                Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
-                Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
-                North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
-                South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
-                Wisconsin, Wyoming';
+        function stateAll() {
+            var allStates =
 
             return allStates.split(/, +/g).map( function (state) {
                 return {
