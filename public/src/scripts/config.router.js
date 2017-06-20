@@ -17,13 +17,16 @@
 
 
         $rootScope.$on('$stateChangeSuccess', function(event) {
-
-            var auth = CommonService.isAuthenticated();
-            if(auth) {
-                $state.go('signin');
-                event.preventDefault();
-                return;
-            }
+            /*if($state.is('signup')) {
+                $state.go('signup');
+            } else {
+                var auth = CommonService.isAuthenticated();
+                if(auth) {
+                    $state.go('signin');
+                    event.preventDefault();
+                    return;
+                }
+            } */
         });
 
     }
@@ -75,7 +78,7 @@
                 controllerAs: 'forgotCtrl',
             })
 
-            .state('app.profile-fillup', {
+            .state('profile-fillup', {
                 url: '/profile-fillup',
                 templateUrl: RELATIVEPATH + 'profile-fillup.html',
                 controller: 'ProfileController',

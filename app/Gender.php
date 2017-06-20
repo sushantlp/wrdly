@@ -23,11 +23,12 @@ class Gender extends Model
     // Get All Wrdly Gender
     public function wrdlyGender() {
         try {
-            $gender = DB::table('genders')
-                      ->select('gender_id as Gender_Id','name as Gender_Name')
-                      ->where('status',1)
-                      ->get();
-            return $gender;
+
+            return  DB::table('genders')
+                    ->select('gender_id as Gender_Id','name as Gender_Name')
+                    ->where('status',1)
+                    ->get();
+
         } catch(\Exception $e) {
 
             // Insert Error Log

@@ -125,7 +125,7 @@ class HabitantController extends ApiController
     }
 
     // Request Get Wrdly Static Data
-    public function getStaticData(Request $request) {
+    public function getWrdlyData(Request $request) {
         if($request->isMethod('get')) {
 
             // Array Variable Declaration

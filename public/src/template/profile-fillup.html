@@ -1,174 +1,193 @@
-<div class="row" ng-controller="ProfileController as profileCtrl">
-   <div class="col-sm-12">
-       <div class="md-whiteframe-z0 bg-white">
-           <ul class="nav nav-lines nav-tabs nav-justified">
-               <li class="active" id="one">
-                   <a href data-toggle="tab" data-target="#tab_7">Update Profile <span class="badge bg-info badge-xs">1</span></a>
-               </li>
-               <li id="two">
-                   <a href data-toggle="tab" data-target="#tab_8">Your Pic <span class="badge bg-info badge-xs">2</span></a>
-               </li>
+<style>
+    body {background-color:white;}
+    label {color:#555459; font-weight:bold; font-family:'Roboto';}
+    p {color:#555459; font-weight:bold; font-family:'Roboto';}
+    .row {margin-left:200px; margin-top:50px; margin-right:90px; margin-bottom:200px;}
+    .box-row {margin: 0 auto;}
+    .i-24 {vertical-align:-36%;}
+    .user-image {cursor:pointer; display:inline-block; height:192px; width:192px; position:relative; background-image:url("src/images/app.jpg");  background-size: cover;}
+    #nav-bar {background-color:white;}
+    #clear {color:#555459; font-size: 36px; margin-top: 5px;}
+    #clear:hover {color:#2ab27b;}
+    #title {color:#2C2D30; margin-left:500px; font-family:'Roboto'; font-weight:bold;}
+    #radius-corner {border-radius:0.25rem 0.25rem 0.25rem 0.25rem; height:45px;}
+    #calendar {margin-left:-15px;}
+    @media (max-width:900px) and (min-width:100px) {
+        #title {color:#2C2D30; margin-left:0px; font-family:'Roboto'; font-weight:bold;}
+        .row {margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;}
+    }   ​
 
-           </ul>
-           <div class="tab-content p m-b-md clear b-t b-t-2x">
-               <div role="tabpanel" class="tab-pane animated fadeInDown active" id="tab_7">
-                   <div ng-controller="ProfileController as profileCtrl" layout="column" ng-cloak>
-                       <md-content class="md-padding" layout-fill class="md-accent">
-                           <form ng-submit="$event.preventDefault()" name="form">
+</style>
+<div class="box">
+  <!-- Content Navbar -->
+  <div class="navbar md-whiteframe-z1 no-radius" ng-class="$state.current.data.theme ? $state.current.data.theme.primary : app.setting.theme.primary" id="nav-bar">
 
-                               <p>Please Select Your <code>Country</code></p>
-                               <md-autocomplete class="autocomplete"
-                                    ng-disabled="profileCtrl.isDisabled"
-                                    md-no-cache="profileCtrl.noCache"
-                                    md-selected-item="profileCtrl.selectedItem"
-                                    md-search-text-change="profileCtrl.searchTextChange(profileCtrl.searchText)"
-                                    md-search-text="profileCtrl.searchText"
-                                    md-selected-item-change="profileCtrl.selectedItemChange(item)"
-                                    md-items="item in profileCtrl.querySearch(profileCtrl.searchText)"
-                                    md-item-text="item.display"
-                                    md-min-length="0"
-                                    placeholder="What is your country name? ">
-                                    <md-item-template>
-                                        <span md-highlight-text="profileCtrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
-                                    </md-item-template>
-                                    <md-not-found>
-                                        No states matching "{{profileCtrl.searchText}}" were found.
-                                        <a ng-click="profileCtrl.newState(profileCtrl.searchText)">Create a new one!</a>
-                                    </md-not-found>
-                                </md-autocomplete>
+    <!-- Page title - Bind to $state's title -->
+    <div class="navbar-item pull-left h4 ng-binding"><h3 id="title">Edit your profile</h3></div>
 
-                                <p class="heavy">Please Select Your <code>State</code></p>
-                                <md-autocomplete
-                                     ng-disabled="profileCtrl.isDisabled"
-                                     md-no-cache="profileCtrl.noCache"
-                                     md-selected-item="profileCtrl.selectedItem"
-                                     md-search-text="profileCtrl.searchText"
-                                     md-selected-item-change="profileCtrl.selectedItemChange(item)"
-                                     md-items="item in profileCtrl.querySearch(profileCtrl.searchText)"
-                                     md-search-text-change="profileCtrl.searchTextChange(profileCtrl.searchText)"
-                                     md-item-text="item.display"
-                                     md-min-length="0"
-                                     placeholder="What is your state name?">
-                                     <md-item-template>
-                                         <span md-highlight-text="profileCtrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
-                                     </md-item-template>
-                                     <md-not-found>
-                                         No states matching "{{profileCtrl.searchText}}" were found.
-                                         <a ng-click="profileCtrl.newState(profileCtrl.searchText)">Create a new one!</a>
-                                     </md-not-found>
-                                 </md-autocomplete>
+    <!-- Common tools -->
+    <ul class="nav nav-sm navbar-tool pull-right" ng-hide="$state.current.data.child">
+      <li>
+        <a md-ink-ripple ng-click="app.search.show = true">
 
-                                 <p class="heavy">Please Select Your <code>City</code></p>
-                                 <md-autocomplete
-                                      ng-disabled="profileCtrl.isDisabled"
-                                      md-no-cache="profileCtrl.noCache"
-                                      md-selected-item="profileCtrl.selectedItem"
-                                      md-search-text-change="profileCtrl.searchTextChange(profileCtrl.searchText)"
-                                      md-search-text="profileCtrl.searchText"
-                                      md-selected-item-change="profileCtrl.selectedItemChange(item)"
-                                      md-items="item in profileCtrl.querySearch(profileCtrl.searchText)"
-                                      md-item-text="item.display"
-                                      md-min-length="0"
-                                      placeholder="What is your city name?">
-                                      <md-item-template>
-                                          <span md-highlight-text="profileCtrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
-                                      </md-item-template>
-                                      <md-not-found>
-                                          No states matching "{{profileCtrl.searchText}}" were found.
-                                          <a ng-click="profileCtrl.newState(profileCtrl.searchText)">Create a new one!</a>
-                                      </md-not-found>
-                                  </md-autocomplete>
+        </a>
+      </li>
+      <li>
+        <a md-ink-ripple data-toggle="modal" data-target="#user">
+            <i class="mdi-content-clear i-24" id="clear"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
 
-                                   <div class="col-sm-4">
-                                       <p class="heavy">Please Select Your <code>Gender</code></p>
-                                       <md-radio-group ng-model="data.group1">
-                                           <md-radio-button value="Male" class="md-primary">Male</md-radio-button>
-                                           <md-radio-button value="Female">Female</md-radio-button>
-                                       </md-radio-group>
-                                   </div>
+  <!-- Content -->
+  <div class="box-row">
+    <div class="box-cell">
+      <div class="box-inner padding" ui-view id="view">
+          <div class="row" ng-controller="ProfileController as profileCtrl">
+    <!--
+                                          <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab1-next-btn" data-target="#tab_8" data-toggle="tab" ng-click="profileCtrl.changeClassNext()">Next</md-button>
+                                      </form>
+                                  </md-content>
+                              </div>
 
-                                   <div class="col-sm-4">
-                                       <p class="heavy">Please Select Your <code>Birthday</code></p>
-                                       <md-datepicker ng-model="profileCtrl.submissionDate"></md-datepicker>
-                                   </div>
-
-                                    <div class="col-sm-4">
-                                        <p class="heavy">Please Enter Your <code>Mobile</code></p>
-                                        <md-input-container md-no-float class="md-block">
-                                            <input ng-model="user.phone" type="text" placeholder="Phone Number">
-                                        </md-input-container>
-                                    </div>
-
-                                <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab1-next-btn" data-target="#tab_8" data-toggle="tab" ng-click="profileCtrl.changeClassNext()">Next</md-button>
-                            </form>
-                        </md-content>
-                    </div>
-
-               </div>
-               <div role="tabpanel" class="tab-pane animated fadeInDown" id="tab_8">
-
-                        <alert ng-show="onapicall" type="info">Please wait.</alert>
-
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="wrapper-md">
-                                    <h4 class="m-n font-thin">Select file</h3>
-                                 </div>
-                                 <div class="wrapper-md" id="file">
-                                     <input type="file" file-model="profile.myFile" accept=".png,.jpg,.tif"/>
-                                 </div>
-                             </div>
-
-                             <div class="col-sm-8">
-                                 <div class="wrapper-md">
-                                     <h4 class="m-n font-thin">Upload queue</h3>
-                                 </div>
-                                 <div class="wrapper-md">
-                                     <table class="table bg-white-only b-a">
-                                         <thead>
-                                             <tr>
-                                                 <th width="50%">Name</th>
-                                                 <th>Size</th>
-                                                 <th>Progress</th>
-                                                 <th>Status</th>
-                                                 <th>Actions</th>
-                                             </tr>
-                                         </thead>
-                                         <tbody>
-                                             <tr>
-                                                 <td><strong>{{ u.fileName }}</strong></td>
-                                                 <td nowrap>{{ u.fileSize }} MB</td>
-                                                 <td>
-                                                     <div class="progress progress-sm m-b-none m-t-xs">
-                                                         <div class="progress-bar bg-info" role="progressbar" ng-style="{ 'width': progresspercent + '%' }"></div>
-                                                     </div>
-                                                 </td>
-                                                 <td class="text-center">
-                                                     <span ng-show="item.isSuccess" class="text-success"><i class="glyphicon glyphicon-ok"></i></span>
-                                                     <span ng-show="item.isCancel" class="text-warning"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                                     <span ng-show="item.isError" class="text-danger"><i class="glyphicon glyphicon-remove"></i></span>
-                                                 </td>
-                                                 <td nowrap>
-                                                     <button type="button" class="btn btn-default btn-xs" ng-click="uploadFile()" ng-disabled="u.fileName == '' || u.fileName == undefined">
-                                                         Upload
-                                                     </button>
-                                                     <button type="button" class="btn btn-default btn-xs" ng-click="removeFile()" ng-disabled="u.fileName == '' || u.fileName == undefined">
-                                                         Remove
-                                                     </button>
-                                                 </td>
-                                             </tr>
-                                         </tbody>
-                                     </table>
-                                 </div>
-                             </div>
                          </div>
+                         <div role="tabpanel" class="tab-pane animated fadeInDown" id="tab_8">
 
-                     <div class="tab2-last-div">
-                        <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab2-prev-btn" data-target="#tab_7" data-toggle="tab" ng-click="profileCtrl.changeClassPrev()">Prev</md-button>
-                        <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab1-next-btn">Next</md-button>
-                    </div>
-               </div>
-           </div>
-       </div>
-   </div>
+                                  <alert ng-show="onapicall" type="info">Please wait.</alert>
+
+                                  <div class="row">
+                                      <div class="col-sm-4">
+                                          <div class="wrapper-md">
+                                              <h4 class="m-n font-thin">Select file</h3>
+                                           </div>
+                                           <div class="wrapper-md" id="file">
+                                               <input type="file" file-model="profile.myFile" accept=".png,.jpg,.tif"/>
+                                           </div>
+                                       </div>
+
+                                       <div class="col-sm-8">
+                                           <div class="wrapper-md">
+                                               <h4 class="m-n font-thin">Upload queue</h3>
+                                           </div>
+                                           <div class="wrapper-md">
+                                               <table class="table bg-white-only b-a">
+                                                   <thead>
+                                                       <tr>
+                                                           <th width="50%">Name</th>
+                                                           <th>Size</th>
+                                                           <th>Progress</th>
+                                                           <th>Status</th>
+                                                           <th>Actions</th>
+                                                       </tr>
+                                                   </thead>
+                                                   <tbody>
+                                                       <tr>
+                                                           <td><strong>{{ u.fileName }}</strong></td>
+                                                           <td nowrap>{{ u.fileSize }} MB</td>
+                                                           <td>
+                                                               <div class="progress progress-sm m-b-none m-t-xs">
+                                                                   <div class="progress-bar bg-info" role="progressbar" ng-style="{ 'width': progresspercent + '%' }"></div>
+                                                               </div>
+                                                           </td>
+                                                           <td class="text-center">
+                                                               <span ng-show="item.isSuccess" class="text-success"><i class="glyphicon glyphicon-ok"></i></span>
+                                                               <span ng-show="item.isCancel" class="text-warning"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                               <span ng-show="item.isError" class="text-danger"><i class="glyphicon glyphicon-remove"></i></span>
+                                                           </td>
+                                                           <td nowrap>
+                                                               <button type="button" class="btn btn-default btn-xs" ng-click="uploadFile()" ng-disabled="u.fileName == '' || u.fileName == undefined">
+                                                                   Upload
+                                                               </button>
+                                                               <button type="button" class="btn btn-default btn-xs" ng-click="removeFile()" ng-disabled="u.fileName == '' || u.fileName == undefined">
+                                                                   Remove
+                                                               </button>
+                                                           </td>
+                                                       </tr>
+                                                   </tbody>
+                                               </table>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                               <div class="tab2-last-div">
+                                  <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab2-prev-btn" data-target="#tab_7" data-toggle="tab" ng-click="profileCtrl.changeClassPrev()">Prev</md-button>
+                                  <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab1-next-btn">Next</md-button>
+                              </div>
+                         </div>
+                     </div>
+                 </div>
+             </div> -->
+             <div class="col-md-8">
+                 <div class="panel panel-default">
+                   <div class="panel-heading bg-white"></div>
+                       <div class="panel-body">
+                           <form role="form">
+
+                               <div class="form-group">
+                                   <label for="first">First name</label>
+                                    <input type="text" class="form-control"  placeholder="First name" id="radius-corner">
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="last">Last name</label>
+                                   <input type="text" class="form-control"  placeholder="Last name" id="radius-corner">
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="phone">Phone number</label>
+                                   <input type="number" class="form-control"  placeholder="Phone number" id="radius-corner">
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="country">Country</label>
+                                   <md-autocomplete class="autocomplete"
+                                        ng-disabled="profileCtrl.isDisabled"
+                                        md-no-cache="profileCtrl.noCache"
+                                        md-selected-item="profileCtrl.selectedItem"
+                                        md-search-text-change="profileCtrl.searchTextChange(profileCtrl.searchText)"
+                                        md-search-text="profileCtrl.searchText"
+                                        md-selected-item-change="profileCtrl.selectedItemChange(item)"
+                                        md-items="item in profileCtrl.querySearch(profileCtrl.searchText)"
+                                        md-item-text="item.display"
+                                        md-min-length="0"
+                                        placeholder="What is your country name? ">
+                                        <md-item-template>
+                                            <span md-highlight-text="profileCtrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                                        </md-item-template>
+                                        <md-not-found>
+                                            No states matching "{{profileCtrl.searchText}}" were found.
+                                            <a ng-click="profileCtrl.newState(profileCtrl.searchText)">Create a new one!</a>
+                                        </md-not-found>
+                                    </md-autocomplete>
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="gender">Gender</label>
+                                   <md-radio-group ng-model="data.group1">
+                                       <md-radio-button value="Male" class="md-primary">Male</md-radio-button>
+                                       <md-radio-button value="Female">Female</md-radio-button>
+                                   </md-radio-group>
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="birthday">Birthday</label>
+                                   <br>
+                                   <md-datepicker ng-model="profileCtrl.submissionDate" id="calendar"></md-datepicker>
+                               </div>
+                           </form>
+                       </div>
+                 </div>
+             </div>
+
+             <div class="col-md-3">
+                 <div class="form-group">
+                     <p>Profile photo</p>
+                     <div class="user-image"></div>
+                 </div>
+             </div>
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
