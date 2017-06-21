@@ -1,11 +1,19 @@
 <style>
+
     body {background-color:white;}
     label {color:#555459; font-weight:bold; font-family:'Roboto';}
     p {color:#555459; font-weight:bold; font-family:'Roboto';}
-    .row {margin-left:200px; margin-top:50px; margin-right:90px; margin-bottom:200px;}
+    img {padding:45px 0px 0px 48px; z-index:1;}
+
+    .fixed {position:fixed; bottom:0; right:0; left:0; background-color:#F7F7F7; padding:10px 10px 10px 0px;}
+    .row {margin-left:200px; margin-top:50px; margin-right:90px; margin-bottom:100px;}
     .box-row {margin: 0 auto;}
     .i-24 {vertical-align:-36%;}
-    .user-image {cursor:pointer; display:inline-block; height:192px; width:192px; position:relative; background-image:url("src/images/app.jpg");  background-size: cover;}
+
+    #user-image {cursor:pointer; display:inline-block; height:192px; width:192px; position:relative; background-image:url("src/images/app.jpg");  background-size:cover;}
+    #user-image:hover {border:.25rem solid #2D9EE0; border-radius:.2rem; position:absolute; opacity:0.1; background-color:black;}
+    #save {text-transform:capitalize; color:white; font-weight:bold; font-family:'Roboto'; background-color:#2ab27b; float:right;}
+    #cancel {text-transform:capitalize; color:#555459; font-weight:bold; font-family:'Roboto'; float:right;}
     #nav-bar {background-color:white;}
     #clear {color:#555459; font-size: 36px; margin-top: 5px;}
     #clear:hover {color:#2ab27b;}
@@ -14,10 +22,11 @@
     #calendar {margin-left:-15px;}
     @media (max-width:900px) and (min-width:100px) {
         #title {color:#2C2D30; margin-left:0px; font-family:'Roboto'; font-weight:bold;}
-        .row {margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:0px;}
+        .row {margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:50px;}
     }   ​
 
 </style>
+
 <div class="box">
   <!-- Content Navbar -->
   <div class="navbar md-whiteframe-z1 no-radius" ng-class="$state.current.data.theme ? $state.current.data.theme.primary : app.setting.theme.primary" id="nav-bar">
@@ -43,81 +52,8 @@
   <!-- Content -->
   <div class="box-row">
     <div class="box-cell">
-      <div class="box-inner padding" ui-view id="view">
-          <div class="row" ng-controller="ProfileController as profileCtrl">
-    <!--
-                                          <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab1-next-btn" data-target="#tab_8" data-toggle="tab" ng-click="profileCtrl.changeClassNext()">Next</md-button>
-                                      </form>
-                                  </md-content>
-                              </div>
-
-                         </div>
-                         <div role="tabpanel" class="tab-pane animated fadeInDown" id="tab_8">
-
-                                  <alert ng-show="onapicall" type="info">Please wait.</alert>
-
-                                  <div class="row">
-                                      <div class="col-sm-4">
-                                          <div class="wrapper-md">
-                                              <h4 class="m-n font-thin">Select file</h3>
-                                           </div>
-                                           <div class="wrapper-md" id="file">
-                                               <input type="file" file-model="profile.myFile" accept=".png,.jpg,.tif"/>
-                                           </div>
-                                       </div>
-
-                                       <div class="col-sm-8">
-                                           <div class="wrapper-md">
-                                               <h4 class="m-n font-thin">Upload queue</h3>
-                                           </div>
-                                           <div class="wrapper-md">
-                                               <table class="table bg-white-only b-a">
-                                                   <thead>
-                                                       <tr>
-                                                           <th width="50%">Name</th>
-                                                           <th>Size</th>
-                                                           <th>Progress</th>
-                                                           <th>Status</th>
-                                                           <th>Actions</th>
-                                                       </tr>
-                                                   </thead>
-                                                   <tbody>
-                                                       <tr>
-                                                           <td><strong>{{ u.fileName }}</strong></td>
-                                                           <td nowrap>{{ u.fileSize }} MB</td>
-                                                           <td>
-                                                               <div class="progress progress-sm m-b-none m-t-xs">
-                                                                   <div class="progress-bar bg-info" role="progressbar" ng-style="{ 'width': progresspercent + '%' }"></div>
-                                                               </div>
-                                                           </td>
-                                                           <td class="text-center">
-                                                               <span ng-show="item.isSuccess" class="text-success"><i class="glyphicon glyphicon-ok"></i></span>
-                                                               <span ng-show="item.isCancel" class="text-warning"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                                               <span ng-show="item.isError" class="text-danger"><i class="glyphicon glyphicon-remove"></i></span>
-                                                           </td>
-                                                           <td nowrap>
-                                                               <button type="button" class="btn btn-default btn-xs" ng-click="uploadFile()" ng-disabled="u.fileName == '' || u.fileName == undefined">
-                                                                   Upload
-                                                               </button>
-                                                               <button type="button" class="btn btn-default btn-xs" ng-click="removeFile()" ng-disabled="u.fileName == '' || u.fileName == undefined">
-                                                                   Remove
-                                                               </button>
-                                                           </td>
-                                                       </tr>
-                                                   </tbody>
-                                               </table>
-                                           </div>
-                                       </div>
-                                   </div>
-
-                               <div class="tab2-last-div">
-                                  <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab2-prev-btn" data-target="#tab_7" data-toggle="tab" ng-click="profileCtrl.changeClassPrev()">Prev</md-button>
-                                  <md-button class="md-raised md-accent btn-fw m-b-sm" id="tab1-next-btn">Next</md-button>
-                              </div>
-                         </div>
-                     </div>
-                 </div>
-             </div> -->
+      <div class="box-inner padding" ui-view id="view" ng-controller="ProfileController as profileCtrl">
+          <div class="row">
              <div class="col-md-8">
                  <div class="panel panel-default">
                    <div class="panel-heading bg-white"></div>
@@ -137,6 +73,11 @@
                                <div class="form-group">
                                    <label for="phone">Phone number</label>
                                    <input type="number" class="form-control"  placeholder="Phone number" id="radius-corner">
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="phone">Email</label>
+                                   <input type="number" class="form-control"  placeholder="Email" id="radius-corner" disabled>
                                </div>
 
                                <div class="form-group">
@@ -183,9 +124,19 @@
              <div class="col-md-3">
                  <div class="form-group">
                      <p>Profile photo</p>
-                     <div class="user-image"></div>
+                     <div id="user-image" ng-mouseover="profileCtrl.imageShow()" ng-mouseleave="profileCtrl.imageHide()" ng-click="profileCtrl.openUploader()"></div>
+                     <div id="image" ng-hide="profileCtrl.hide" ng-click="profileCtrl.openUploader()">
+                         <img ng-src='src/images/camera_black2.png' alt="Description"/>
+                     </div>
+                     <input type="file" nv-file-select="" uploader="uploader" id="upload" ng-hide="true" onchange="profileCtrl.changeEvent()"/>
                  </div>
              </div>
+          </div>
+          <div class="row">
+              <div class="fixed">
+                  <md-button class="md-raised btn-fw m-b-sm" id="save">Save Changes</md-button>
+                  <md-button class="md-raised btn-fw m-b-sm" id="cancel">Cancel</md-button>
+              </div>
           </div>
       </div>
     </div>

@@ -2,13 +2,37 @@
 
     'use strict';
 
-    angular.module('wrdly')
+    var wrdly = angular.module('wrdly')
     .controller('SignUpController', SignUpController)
     .controller('ProfileController', ProfileController);
 
 
     SignUpController.$inject = ['RestfullApi','CommonService'];
     ProfileController.$inject = ['$timeout','$q','CommonService'];
+
+    wrdly.directive('fileModel', [
+        '$parse',
+        function ($parse) {
+            return {
+                restrict: 'A',
+                link: function(scope, element, attrs) {
+                    var model = $parse(attrs.fileModel);
+                    var modelSetter = model.assign;
+
+                    element.bind('change', function(){
+                        scope.$apply(function(){
+                            if (attrs.multiple) {
+                                modelSetter(scope, element[0].files);
+                            }
+                            else {
+                                modelSetter(scope, element[0].files[0]);
+                            }
+                        });
+                    });
+                }
+            };
+        }
+    ]);
 
     // Signup Controller
     function SignUpController(RestfullApi,CommonService) {
@@ -89,25 +113,27 @@
     }
 
     function ProfileController($timeout,$q,CommonService) {
-        var self = this;
+        var profileCtrl = this;
 
-        self.simulateQuery = true;
-        self.isDisabled    = false;
-        self.template = 'src/template/content.html';
+        profileCtrl.hide = true;
+        profileCtrl.myFile = "";
+        profileCtrl.simulateQuery = true;
+        profileCtrl.isDisabled    = false;
+        profileCtrl.template = 'src/template/content.html';
 
         // list of `state` value/display objects
-        self.states        = stateAll();
-        self.querySearch   = querySearch;
-        self.selectedItemChange = null;
-        self.searchTextChange   = null;
+        profileCtrl.states        = stateAll();
+        profileCtrl.querySearch   = querySearch;
+        profileCtrl.selectedItemChange = null;
+        profileCtrl.searchTextChange   = null;
 
-        self.newState = null;
+        profileCtrl.newState = null;
 
         // Search for states... use $timeout to simulate
         function querySearch (query) {
-            var results = query ? self.states.filter( createFilterFor(query) ) : self.states,
+            var results = query ? profileCtrl.states.filter( createFilterFor(query) ) : profileCtrl.states,
             deferred;
-            if (self.simulateQuery) {
+            if (profileCtrl.simulateQuery) {
                 deferred = $q.defer();
                 $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
                 return deferred.promise;
@@ -147,11 +173,28 @@
         /* self.changeClassNext = function() {
              $("#one").removeClass("active");
              $("#two").addClass("active");
+         }; */
+
+         profileCtrl.openUploader = function () {
+             $("#upload").click();
          };
 
-         self.changeClassPrev = function() {
-             $("#two").removeClass("active");
-             $("#one").addClass("active");
-         }; */
+         profileCtrl.imageHide = function () {
+             profileCtrl.hide = true;
+         };
+
+         profileCtrl.imageShow = function () {
+             profileCtrl.hide = false;
+         };
+
+         profileCtrl.uploadFile = function () {
+             var file = profileCtrl.myFile;
+             var uploadUrl = '../api/v3/merchant/fileupload?'
+             CommonService.uploadFileToUrl(file, uploadUrl);
+         };
+
+         profileCtrl.changeEvent = function () {
+             console.log("hello");
+         };
     }
 })();
