@@ -102,20 +102,20 @@
         };
 
         // Image Upload service
-        service.uploadFileToUrl = function(file, uploadUrl) {
-           var fd = new FormData();
-           fd.append('file', file);
+        service.uploadFiles = function (httpMethod,httpUrl,formdata) {
 
-           $http.post(uploadUrl, fd, {
-              transformRequest: angular.identity,
-              headers: {'Content-Type': undefined}
-           })
+             var request = {
+                 method: httpMethod,
+                 url: httpUrl,
+                 data: formdata,
+                 headers: {
+                     'Content-Type': undefined
+                 }
+             };
 
-           .success(function(){
-           })
-
-           .error(function(){
-           });
-        }
+             // SEND THE FILES.
+             var upload = $http(request);
+             return upload;
+         };
     }
 })();

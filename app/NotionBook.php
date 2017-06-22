@@ -23,13 +23,12 @@ class NotionBook extends Model
     // Get Wrdly Notion Book
     public function getNotionBook($thoughtId) {
         try {
-            $book = DB::table('notion_books')
-                    ->select('thought_id as Thought_Id'
-                        ,'paragraph as Book_Paragraph'
-                    )
+
+            return  DB::table('notion_books')
+                    ->select('thought_id as Thought_Id' ,'paragraph as Book_Paragraph')
                     ->where('status',1)
                     ->get();
-            return $book;
+
         } catch(\Exception $e) {
 
             // Insert Error Log
@@ -60,6 +59,4 @@ class NotionBook extends Model
             return $this->api->respondWithError("Oops some technical problem");
         }
     }
-
-
 }

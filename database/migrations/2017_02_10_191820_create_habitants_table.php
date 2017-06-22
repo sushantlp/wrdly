@@ -24,6 +24,7 @@ class CreateHabitantsTable extends Migration
             $table->string('address')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longtitude')->nullable();
+            $table->string('pic_path')->nullable();
             $table->timestamps();
         });
     }

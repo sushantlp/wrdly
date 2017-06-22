@@ -56,7 +56,7 @@ function LoginController(RestfullApi, $state, CommonService) {
                       CommonService.buildValue(email,password,token,role);
 
                       if(mobile === null) {
-                          $state.go('app.profile-fillup');
+                          $state.go('profile-fillup');
                       } else {
                           $state.go('app.dashboard');
                       }

@@ -10,6 +10,8 @@ use App\Theme;
 use App\Quote;
 use App\Thought;
 use App\NotionBook;
+use App\ProfileImageDetail;
+use App\Jobs\CloudUploader;
 
 class HabitantController extends ApiController
 {
@@ -21,10 +23,11 @@ class HabitantController extends ApiController
     protected $quoteObject;
     protected $thoughtObject;
     protected $notionBookObject;
+    protected $picObject;
 
 
     // Constructor Function Create Object
-    public function __construct(NotionBook $notionBookObject, Thought $thoughtObject, Habitant $habitantObject, Gender $genderObject, Day $dayObject, Theme $themeObject, Quote $quoteObject) {
+    public function __construct(NotionBook $notionBookObject, Thought $thoughtObject, Habitant $habitantObject, Gender $genderObject, Day $dayObject, Theme $themeObject, Quote $quoteObject, ProfileImageDetail $picObject) {
 
         $this->thoughtObject = $thoughtObject;
         $this->notionBookObject = $notionBookObject;
@@ -33,6 +36,7 @@ class HabitantController extends ApiController
         $this->dayObject = $dayObject;
         $this->themeObject = $themeObject;
         $this->quoteObject = $quoteObject;
+        $this->picObject = $picObject;
     }
 
 
@@ -369,5 +373,96 @@ class HabitantController extends ApiController
         } else {
             return $this->respondWithError("Not a good api call");
         }
+    }
+
+    // Request User Profile Image Upload
+    public function uploadProfilePic(Request $request) {
+        if($request->isMethod('get') && $request->has('email')) {
+
+           // Check Image is Send
+           if(!$request->hasFile('image')) {
+               return $this->respondWithError("No image sent");
+           }
+
+           // Check Image is Valid
+           if(!$request->file('image')->isValid()) {
+               return $this->respondWithError("Image is not valid");
+           }
+
+           // Extract Parameter
+           $email = $request->input('email');
+           $image = $request->input('image');
+
+           // Get User Information By Email
+           $user = $this->getUserDetailByEmail($email);
+           if(is_string($user)) {
+               return $user;
+           }
+
+           $user = json_decode(json_encode($user),true);
+           if(empty($user)) {
+               return $this->respondWithError("Invalid user");
+           }
+
+           // Move User Profile Image Temporary to Permanent Folder
+           $move = $this->moveProfilePic($user,$image);
+        } else {
+            return $this->respondWithError("Not a good api call");
+        }
+    }
+
+    // Move User Profile Image Temporary to Permanent Folder
+    public function moveProfilePic($user,$image) {
+
+       // Create File Path
+       $path = public_path().'/profile_images';
+
+       // Check Path and Directory Exist
+       if(!File::isDirectory($path)) {
+
+           // Create Directory
+           mkdir($path,0777);
+       }
+
+       // Count User Pic
+       $countPic = $this->picObject->countUserPic($user['user_id']);
+       if(is_string($countPic)) {
+           return $countPic;
+       }
+
+       // Get File Original Name
+       $originalName = $image->getClientOriginalName();
+
+       // Get File Extension Name
+       $fileExtension = $image->getClientOriginalExtension();
+
+       // Get File Size
+       $fileSize = $image->getSize();
+
+       // Get File Mime Type
+       $mimeType = $image->getMimeType();
+
+       // Image New Name Which are Stored
+       $newName = $user['user_id'].'_'.$countPic.'.'.$fileExtension;
+
+       // Cloudinary
+       $publicId = $user['user_id'].'_'.$countPic;
+
+       // Move File Temporary to Public folder
+       $image->move($path,$newName);
+
+       // Create File Path
+       $newPath = $path.$newName;
+
+       // Keep User Profile Image Record
+       $store = $this->picObject->keepProfileImageRecord($user['user_id'],$originalName,$newName,$fileSize,$mimeType,$fileExtension,$newPath);
+       if(is_string($store)) {
+           return $store;
+       }
+
+       // Image Send in Jobs
+       $this->dispatch(new CloudUploader($newPath,$publicId,'user_profile_pic'),$user['user_id']);
+
+       return $this->respondWithMessage("Successful");
     }
 }

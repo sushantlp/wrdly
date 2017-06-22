@@ -27,6 +27,7 @@ Route::group(['prefix' => 'api/v1'],function() {
         // Jwt Token Api
         Route::post('/profile',['middleware' => 'cors','uses' => 'HabitantController@completeProfile']);
         Route::post('/updateinfo',['middleware' => 'cors','uses' => 'HabitantController@updateProfile']);
+        Route::post('/profile/image',['middleware' => 'cors','uses' => 'HabitantController@uploadProfilePic']);
 
         Route::get('/getstatic',['middleware' => 'cors','uses' => 'HabitantController@getWrdlyData']);
         Route::get('/getbook',['middleware' => 'cors','uses' => 'HabitantController@getSolarSystem']);

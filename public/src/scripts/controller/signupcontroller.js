@@ -8,31 +8,21 @@
 
 
     SignUpController.$inject = ['RestfullApi','CommonService'];
-    ProfileController.$inject = ['$timeout','$q','CommonService'];
+    ProfileController.$inject = ['$timeout','$q','CommonService','$rootScope'];
 
-    wrdly.directive('fileModel', [
-        '$parse',
-        function ($parse) {
-            return {
-                restrict: 'A',
-                link: function(scope, element, attrs) {
-                    var model = $parse(attrs.fileModel);
-                    var modelSetter = model.assign;
+    wrdly.directive('ngFiles', ['$parse', function ($parse) {
 
-                    element.bind('change', function(){
-                        scope.$apply(function(){
-                            if (attrs.multiple) {
-                                modelSetter(scope, element[0].files);
-                            }
-                            else {
-                                modelSetter(scope, element[0].files[0]);
-                            }
-                        });
-                    });
-                }
-            };
-        }
-    ]);
+           function fn_link(scope, element, attrs) {
+               var onChange = $parse(attrs.ngFiles);
+               element.on('change', function (event) {
+                   onChange(scope, { $files: event.target.files });
+               });
+           };
+
+           return {
+               link: fn_link
+           }
+    }]);
 
     // Signup Controller
     function SignUpController(RestfullApi,CommonService) {
@@ -112,11 +102,17 @@
 
     }
 
-    function ProfileController($timeout,$q,CommonService) {
+    function ProfileController($timeout,$q,CommonService,$rootScope) {
         var profileCtrl = this;
 
+        // Object Form Data
+        profileCtrl.formdata = new FormData();
+
+        // Image Api Upload
+        profileCtrl.imageUrl = '/api/v1/user/profile/image';
+
         profileCtrl.hide = true;
-        profileCtrl.myFile = "";
+        profileCtrl.submissionDate = "";
         profileCtrl.simulateQuery = true;
         profileCtrl.isDisabled    = false;
         profileCtrl.template = 'src/template/content.html';
@@ -187,14 +183,49 @@
              profileCtrl.hide = false;
          };
 
-         profileCtrl.uploadFile = function () {
-             var file = profileCtrl.myFile;
-             var uploadUrl = '../api/v3/merchant/fileupload?'
-             CommonService.uploadFileToUrl(file, uploadUrl);
-         };
+         profileCtrl.getTheFiles = function ($files) {
 
-         profileCtrl.changeEvent = function () {
-             console.log("hello");
+             // Open Circular Dialog
+             CommonService.circularDialogOpen();
+
+             angular.forEach($files, function (value, key) {
+                 profileCtrl.formdata.append('image',value);
+             });
+             console.log($rootScope.engine.email);
+             profileCtrl.formdata.append('email',$rootScope.engine.email);
+
+             // Image Upload service
+             var promise = CommonService.uploadFiles('POST',profileCtrl.imageUrl,profileCtrl.formdata);
+             promise.then(function(response) {
+                 if (angular.isObject(response)) {
+
+                     // Close Circular Dialog
+                     CommonService.circularDialogClose();
+
+                     if (response.data.hasOwnProperty('wrdly_success')) {
+
+                     } else {
+
+                         // Open Toaster
+                         CommonService.showActionToast(response.data.wrdly_error.wrdly);
+                     }
+                 } else {
+
+                     // Close Circular Dialog
+                     CommonService.circularDialogClose();
+
+                     // Open Toaster
+                     CommonService.showActionToast('Please try again later');
+                 }
+             })
+             .catch (function (error) {
+
+                 // Close Circular Dialog
+                 CommonService.circularDialogClose();
+
+                 // Open Toaster
+                 CommonService.showActionToast('Please try again later');
+             });
          };
     }
 })();

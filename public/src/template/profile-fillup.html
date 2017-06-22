@@ -128,7 +128,7 @@
                      <div id="image" ng-hide="profileCtrl.hide" ng-click="profileCtrl.openUploader()">
                          <img ng-src='src/images/camera_black2.png' alt="Description"/>
                      </div>
-                     <input type="file" nv-file-select="" uploader="uploader" id="upload" ng-hide="true" onchange="profileCtrl.changeEvent()"/>
+                     <input type="file" name="file" multiple id="upload" ng-hide="true" ng-files="profileCtrl.getTheFiles($files)" accept=".png,.jpg,.tif" />
                  </div>
              </div>
           </div>
