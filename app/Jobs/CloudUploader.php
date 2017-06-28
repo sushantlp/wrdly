@@ -40,6 +40,7 @@ class CloudUploader implements ShouldQueue
     public function handle()
     {
         $response = Cloudder::upload($this->filePath,$this->publicId,array("folder"=>$this->folder,"use_filename"=>TRUE ,"unique_filename"=>FALSE))->getResult();
+        var_dump($response)
         if($response) {
 
             // Object Creation

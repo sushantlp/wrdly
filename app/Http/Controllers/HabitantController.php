@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use File;
 use App\Habitant;
 use App\Gender;
 use App\Day;
@@ -12,9 +14,12 @@ use App\Thought;
 use App\NotionBook;
 use App\ProfileImageDetail;
 use App\Jobs\CloudUploader;
+use JD\Cloudder\Facades\Cloudder;
 
 class HabitantController extends ApiController
 {
+    use DispatchesJobs;
+
     // Variable Declaration
     protected $habitantObject;
     protected $genderObject;
@@ -377,7 +382,7 @@ class HabitantController extends ApiController
 
     // Request User Profile Image Upload
     public function uploadProfilePic(Request $request) {
-        if($request->isMethod('get') && $request->has('email')) {
+        if($request->isMethod('post') && $request->has('email')) {
 
            // Check Image is Send
            if(!$request->hasFile('image')) {
@@ -391,7 +396,7 @@ class HabitantController extends ApiController
 
            // Extract Parameter
            $email = $request->input('email');
-           $image = $request->input('image');
+           $image = $request->file('image');
 
            // Get User Information By Email
            $user = $this->getUserDetailByEmail($email);
@@ -406,6 +411,8 @@ class HabitantController extends ApiController
 
            // Move User Profile Image Temporary to Permanent Folder
            $move = $this->moveProfilePic($user,$image);
+
+           return $move;
         } else {
             return $this->respondWithError("Not a good api call");
         }
@@ -452,7 +459,7 @@ class HabitantController extends ApiController
        $image->move($path,$newName);
 
        // Create File Path
-       $newPath = $path.$newName;
+       $newPath = $path.'/'.$newName;
 
        // Keep User Profile Image Record
        $store = $this->picObject->keepProfileImageRecord($user['user_id'],$originalName,$newName,$fileSize,$mimeType,$fileExtension,$newPath);
@@ -460,9 +467,14 @@ class HabitantController extends ApiController
            return $store;
        }
 
-       // Image Send in Jobs
-       $this->dispatch(new CloudUploader($newPath,$publicId,'user_profile_pic'),$user['user_id']);
+       // Trim User Profile Image
+       $trimPath = $this->profileImagePathSet($newPath);
 
-       return $this->respondWithMessage("Successful");
+       // Image Send in Jobs
+      // $this->dispatch(new CloudUploader($newPath,$publicId,'user_profile_pic',$user['user_id']));
+
+      $response = Cloudder::upload($newPath,$publicId,array("folder"=>'user_profile_pic',"use_filename"=>TRUE ,"unique_filename"=>FALSE))->getResult();
+      var_dump($response);
+       return $this->respondWithSuccess($trimPath);
     }
 }

@@ -19,8 +19,6 @@ class CommonLogicController extends ErrorLog
 
     }
 
-
-
     // Insert User Detail in User Table
     public function insertUserDetail($name,$email,$password,$mobile,$rollId) {
         try {
@@ -213,5 +211,11 @@ class CommonLogicController extends ErrorLog
 
            return $this->respondWithError("Oops some technical problem");
        }
+   }
+
+   // Trim User Profile Image
+   public function profileImagePathSet($path) {
+       $path = explode('/public',$path);
+       return $path[1];
    }
 }

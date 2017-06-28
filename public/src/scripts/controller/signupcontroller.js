@@ -108,6 +108,9 @@
         // Object Form Data
         profileCtrl.formdata = new FormData();
 
+        // User Default Pic
+        profileCtrl.userPic = 'src/images/app.jpg';
+
         // Image Api Upload
         profileCtrl.imageUrl = '/api/v1/user/profile/image';
 
@@ -171,6 +174,11 @@
              $("#two").addClass("active");
          }; */
 
+         // Dynamic User Profile Pic
+         profileCtrl.dynamicPic = function (value) {
+             $('#user-image').css('background-image', 'url('+value+')');
+         };
+
          profileCtrl.openUploader = function () {
              $("#upload").click();
          };
@@ -191,7 +199,7 @@
              angular.forEach($files, function (value, key) {
                  profileCtrl.formdata.append('image',value);
              });
-             console.log($rootScope.engine.email);
+
              profileCtrl.formdata.append('email',$rootScope.engine.email);
 
              // Image Upload service
@@ -204,6 +212,11 @@
 
                      if (response.data.hasOwnProperty('wrdly_success')) {
 
+                         // Assign User Profile Pic Upload
+                         profileCtrl.userPic = response.data.wrdly_success.wrdly;
+
+                         // Dynamic User Profile Pic
+                         profileCtrl.dynamicPic(profileCtrl.userPic);
                      } else {
 
                          // Open Toaster

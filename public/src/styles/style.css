@@ -31,8 +31,6 @@ span {font-family:'Roboto',sans-serif;}
 #nav-bar {background-color:#d8d8d8;}
 #dash-row {margin-top:0px; text-align:center;}
 #card {border-radius: 6px; width:450px;}
-/*#tab1-next-btn {background-color:#ff6686; float:right;}
-#tab2-prev-btn {background-color:#7b53fc;} */
 #card-platform {background-color:rgb(239, 239, 239);}
 #dash-card-header {height:4px; width:100%; margin-bottom:20px; border-radius:6px 6px 0 0;}
 #timeline-card-header{height:6px; width:100%; margin-bottom:20px; border-radius:6px 6px 0 0;}
