@@ -1,6 +1,6 @@
 <?php
 
-return [
+/*return [
      /*
      |--------------------------------------------------------------------------
      | Laravel CORS
@@ -11,11 +11,11 @@ return [
      | to accept any value.
      |
      */
-    'supportsCredentials' => false,
+/*    'supportsCredentials' => false,
     'allowedOrigins' => ['*'],
     'allowedHeaders' => ['*'], // ex : ['Content-Type', 'Accept']
     'allowedMethods' => ['*'], // ex: ['GET', 'POST', 'PUT',  'DELETE']
     'exposedHeaders' => [],
     'maxAge' => 0,
-    'hosts' => [],
-]
+    'hosts' => [] 
+] */
