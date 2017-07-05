@@ -19,8 +19,6 @@ class CommonLogicController extends ErrorLog
 
     }
 
-
-
     // Insert User Detail in User Table
     public function insertUserDetail($name,$email,$password,$mobile,$rollId) {
         try {
@@ -42,8 +40,8 @@ class CommonLogicController extends ErrorLog
         }
     }
 
-    // Generate Random Code
     public function generateCode($length = 10) {
+        // Generate Random Code
         try {
             $characters = '123456789';
             $charactersLength = strlen($characters);
@@ -78,26 +76,36 @@ class CommonLogicController extends ErrorLog
     // User Credential Verify
     public function verifyUserCredential($email,$password) {
         try {
+            // Variable Declaration
+            $arr = array();
+
             // Get User Detail By email
             $verify = $this->getUserDetailByEmail($email);
-            $arr = array();
-            if(is_object($verify)) {
-                if($verify->status == 0) {
-                    if($verify->email_active == 0) {
-                        return $this->respondWithMessage("Please verify your account");
-                    } else {
-                        return $this->respondWithMessage("InActive user");
-                    }
-                }
 
-                if(Hash::check($password,$verify->password)) {
-                   return $verify;
-                } else {
-                   return $this->respondWithMessage("Password fail");
-                }
-            } else {
+            if(is_string($verify)) {
                 return $verify;
             }
+
+            $verify = json_decode(json_encode($verify),true);
+
+            if(empty($verify)) {
+                return $this->respondWithError("Invalid user");
+            }
+
+            if($verify['status'] == 0) {
+                if($verify['email_active'] == 0) {
+                    return $this->respondWithMessage("Please verify your account");
+                } else {
+                    return $this->respondWithMessage("Inactive user");
+                }
+            }
+
+            if(Hash::check($password,$verify['password'])) {
+               return $verify;
+            } else {
+               return $this->respondWithMessage("Password fail");
+            }
+
         } catch(\Exception $e) {
 
             // Insert Error Log
@@ -111,13 +119,10 @@ class CommonLogicController extends ErrorLog
     public function getUserDetailByEmail($email) {
         try {
             $info = DB::table('users')
-                      ->where('email',$email)
-                      ->first();
-            if($info) {
-                return $info;
-            } else {
-                return $this->respondWithMessage("Invalid user");
-            }
+                    ->where('email',$email)
+                    ->first();
+
+            return $info;
         } catch(\Exception $e) {
 
             // Insert Error Log
@@ -206,5 +211,11 @@ class CommonLogicController extends ErrorLog
 
            return $this->respondWithError("Oops some technical problem");
        }
+   }
+
+   // Trim User Profile Image
+   public function profileImagePathSet($path) {
+       $path = explode('/public',$path);
+       return $path[1];
    }
 }

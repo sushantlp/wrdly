@@ -1,0 +1,58 @@
+<div ng-controller="DashboardController as dashCtrl">
+    <div class="row" id="dash-row">
+        <div class="col-sm-12">
+            <h1>A word after a word after a word is power</h1>
+            <p class="writer">Margaret Atwood</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5" ng-repeat="item in dashCtrl.content" ng-class-odd="'oddflex'" ng-class-even="'evenflex'">
+            <md-card md-theme-watch id="card" md-ink-ripple="{{item.color}}">
+                 <md-card-header>
+                     <div id="dash-card-header" ng-class="{fiesta: item.past == 'fish', golden_yellow: item.past == 'yellow', atom_green: item.past == 'green', gibson_red: item.past == 'red', sea_blue: item.past == 'blue', ultra_marine: item.past == 'ultra', nice_green: item.past == 'nice-green', gibson_orange: item.past == 'orange'}"></div>
+                 </md-card-header>
+                <md-card-content >
+                    <p id="card-content-idea">{{item.paragraph}}</p>
+                </md-card-content>
+
+                <md-card-actions layout="row" layout-align="end center">
+
+                    <h5 class="theme" ng-style="{color:item.color}">{{item.theme}}</h5>
+
+                    <md-button class="md-icon-button" aria-label="favorite">
+                       <ng-md-icon icon="favorite" ng-style="{fill:dashCtrl.changeColor}" size="28" options="rotation:counterclock" ng-click="dashCtrl.hitLike(1)"></ng-md-icon>
+                       <md-tooltip md-visible="hide.showTooltip" md-direction="top">
+                           <p>Like Please</p>
+                       </md-tooltip>
+                    </md-button>
+                     <span class="badge bg-dark pos-rlt m-r-xs" id="favorite"><b class="arrow left b-dark pull-in"></b>2</span>
+
+                    <md-button class="md-icon-button" aria-label="camera_alt">
+                         <ng-md-icon icon="camera_alt" ng-style="{fill:dashCtrl.changeColor}" size="28" options="rotation:counterclock" ng-click="dashCtrl.hitLike(2)" id="camera"></ng-md-icon>
+                         <md-tooltip md-visible="hide.showTooltip" md-direction="top">
+                             <p>Suscribe Please</p>
+                         </md-tooltip>
+                    </md-button>
+                     <span class="badge bg-dark pos-rlt m-r-xs"><b class="arrow left b-dark pull-in"></b>4</span>
+
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+    <div id="loc"></div>
+    <md-fab-speed-dial id="fab">
+        <md-fab-trigger>
+            <md-button aria-label="add" class="md-fab md-warn" id="fab-button" ng-click="dashCtrl.open()">
+                <md-icon md-font-set="md">add</md-icon>
+                <md-tooltip md-visible="hide.showTooltip">
+                    <p>Knock</p>
+                </md-tooltip>
+            </md-button>
+        </md-fab-trigger>
+    </md-fab-speed-dial>
+
+    <script type="text/ng-template" id="myModalContent.html">
+           <div ng-include="'src/template/modal.html'"></div>
+    </script>
+</div>

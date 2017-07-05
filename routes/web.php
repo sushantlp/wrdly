@@ -26,11 +26,22 @@ Route::group(['prefix' => 'api/v1'],function() {
         Route::post('/token',[/*'middleware' => 'cors',*/'uses' => 'IdentifyController@tokenRegenerate']);
 
         // Jwt Token Api
+<<<<<<< HEAD
         Route::post('/profile',[/*'middleware' => 'cors',*/'uses' => 'HabitantController@completeProfile']);
         Route::post('/updateinfo',[/*'middleware' => 'cors',*/'uses' => 'HabitantController@updateProfile']);
 
         Route::get('/getstatic',[/*'middleware' => 'cors',*/'uses' => 'HabitantController@getStaticData']);
         Route::get('/getbook',[/*'middleware' => 'cors',*/'uses' => 'HabitantController@getSolarSystem']);
         Route::post('/keepbook',[/*'middleware' => 'cors',*/'uses' => 'HabitantController@keepSolarSystem']);
+=======
+        Route::post('/profile',['middleware' => 'cors','uses' => 'HabitantController@completeProfile']);
+        Route::post('/updateinfo',['middleware' => 'cors','uses' => 'HabitantController@updateProfile']);
+        Route::post('/profile/image',['middleware' => 'cors','uses' => 'HabitantController@uploadProfilePic']);
+
+        Route::get('/getstatic',['middleware' => 'cors','uses' => 'HabitantController@getWrdlyData']);
+        Route::get('/getbook',['middleware' => 'cors','uses' => 'HabitantController@getSolarSystem']);
+        Route::post('/keepbook',['middleware' => 'cors','uses' => 'HabitantController@keepSolarSystem']);
+        Route::post('/team',['middleware' => 'cors','uses' => 'HabitantController@keepBookNotion']);
+>>>>>>> 02728548e8af15968b9dba4abfc9a6b37a21b9a5
     });
 });

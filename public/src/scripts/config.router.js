@@ -4,15 +4,52 @@
 
     angular.module('wrdly')
     .constant('RELATIVEPATH', "src/template/")
+    .run(routeRun)
     .config(routeConfig);
 
+    routeRun.$inject = ['$rootScope', '$state', '$stateParams', 'CommonService', '$location'];
     routeConfig.$inject = ['$stateProvider','$urlRouterProvider','RELATIVEPATH'];
 
-    function routeConfig ($stateProvider,$urlRouterProvider,RELATIVEPATH) {
+    function routeRun($rootScope, $state, $stateParams, CommonService, $location) {
+
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+
+
+        $rootScope.$on('$stateChangeSuccess', function(event) {
+            /*if($state.is('signup')) {
+                $state.go('signup');
+            } else {
+                var auth = CommonService.isAuthenticated();
+                if(auth) {
+                    $state.go('signin');
+                    event.preventDefault();
+                    return;
+                }
+            } */
+        });
+
+    }
+
+    function routeConfig($stateProvider,$urlRouterProvider,RELATIVEPATH) {
 
         $urlRouterProvider.otherwise('/signin');
 
         $stateProvider
+
+            .state('app', {
+                abstract: true,
+                views: {
+                    '': {
+                        templateUrl: RELATIVEPATH + 'layout.html'
+                    },
+
+                    'content': {
+                        templateUrl: RELATIVEPATH + 'content.html'
+                    }
+                }
+            })
+
             .state('signin', {
                 url: '/signin',
                 templateUrl: RELATIVEPATH + 'signin.html',
@@ -39,6 +76,27 @@
                 templateUrl: RELATIVEPATH + 'forgot-password.html',
                 controller: 'ForgotPasswordController',
                 controllerAs: 'forgotCtrl',
+            })
+
+            .state('profile-fillup', {
+                url: '/profile-fillup',
+                templateUrl: RELATIVEPATH + 'profile-fillup.html',
+                controller: 'ProfileController',
+                controllerAs: 'profileCtrl',
+            })
+
+            .state('app.dashboard', {
+                url: '/dashboard',
+                templateUrl: RELATIVEPATH + 'dashboard.html',
+                controller: 'DashboardController',
+                controllerAs: 'dashCtrl',
+            })
+
+            .state('app.timeline', {
+                url: '/timeline',
+                templateUrl: RELATIVEPATH + 'timeline.html',
+                controller: 'TimelineController',
+                controllerAs: 'timeCtrl',
             });
     };
 })();

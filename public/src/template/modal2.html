@@ -1,0 +1,21 @@
+
+<div class="modal-header">
+    <div id="modal-color-header" ng-class="{fiesta: magic == 'story', golden_yellow: magic == 'poem', atom_green: magic == 'lyrics', gibson_red: magic == 'drama', sea_blue: magic == 'comdey', ultra_marine: magic == 'science'}"></div>
+    <h3 class="modal-title" id="modal-header-title">Write your ideas down.</h3>
+</div>
+<div class="modal-body">
+    <textarea  rows="9" cols="45" placeholder="Your word here..." id="textarea" maxlength="200" ng-keydown="calculateText($event)"></textarea>
+    <span class="badge" id="modal-counter">{{counter}}</span>
+</div>
+<div class="modal-footer">
+    <md-fab-speed-dial id="modal-add">
+        <md-fab-trigger>
+            <md-button aria-label="add" class="md-fab md-warn" id="fab-button-modal" ng-click="dashCtrl.open()">
+                <md-icon md-font-set="md">add</md-icon>
+                <md-tooltip md-visible="hide.showTooltip">
+                    <p>Add Please</p>
+                </md-tooltip>
+            </md-button>
+        </md-fab-trigger>
+    </md-fab-speed-dial>
+</div>

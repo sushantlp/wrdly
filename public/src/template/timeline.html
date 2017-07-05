@@ -1,0 +1,41 @@
+<style>
+    .padding {
+        padding-top:0px;
+    }
+</style>
+
+<div ng-controller="TimelineController as timeCtrl">
+    <div class="row" id="timline-row">
+        <div class="col-sm-12" ng-repeat="item in timeCtrl.content">
+
+            <div ng-if="$index == 0" id="timeline-choice1" ng-class="{fiesta: timeCtrl.past == 'fish', golden_yellow: timeCtrl.past == 'yellow', atom_green: timeCtrl.past == 'green', gibson_red: timeCtrl.past == 'red', sea_blue: timeCtrl.past == 'blue', ultra_marine: timeCtrl.past == 'ultra', nice_green: timeCtrl.past == 'nice-green', gibson_orange: timeCtrl.past == 'orange'}"></div>
+            <div ng-if="$index != 0" id="timeline-choice2" ng-class="{fiesta: timeCtrl.past == 'fish', golden_yellow: timeCtrl.past == 'yellow', atom_green: timeCtrl.past == 'green', gibson_red: timeCtrl.past == 'red', sea_blue: timeCtrl.past == 'blue', ultra_marine: timeCtrl.past == 'ultra', nice_green: timeCtrl.past == 'nice-green', gibson_orange: timeCtrl.past == 'orange'}"></div>
+
+            <md-card md-theme-watch id="timeline-card" ng-class="{firstcard:$first}">
+                 <md-card-header>
+                     <div ng-if="$index == 0" id="timeline-card-header" ng-class="{fiesta: timeCtrl.past == 'fish', golden_yellow: timeCtrl.past == 'yellow', atom_green: timeCtrl.past == 'green', gibson_red: timeCtrl.past == 'red', sea_blue: timeCtrl.past == 'blue', ultra_marine: timeCtrl.past == 'ultra', nice_green: timeCtrl.past == 'nice-green', gibson_orange: timeCtrl.past == 'orange'}"></div>
+                 </md-card-header>
+                <md-card-content id="timline-card-content">
+                    <p id="card-content-idea">{{item.paragraph}}</p>
+                </md-card-content>
+
+                <md-card-actions layout="row" layout-align="end center"></md-card-actions>
+            </md-card>
+        </div>
+    </div>
+    <div id="loc"></div>
+    <md-fab-speed-dial id="fab">
+        <md-fab-trigger>
+            <md-button aria-label="add" class="md-fab md-warn" id="fab-button" ng-click="timeCtrl.open()">
+                <md-icon md-font-set="md">add</md-icon>
+                <md-tooltip md-visible="hide.showTooltip">
+                    <p>Knock</p>
+                </md-tooltip>
+            </md-button>
+        </md-fab-trigger>
+    </md-fab-speed-dial>
+
+    <script type="text/ng-template" id="myModalContent.html">
+           <div ng-include="'src/template/modal2.html'"></div>
+    </script>
+</div>

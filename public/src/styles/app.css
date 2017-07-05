@@ -1699,7 +1699,7 @@ a.list-group-item.hover {
 .md-btn.md-fab[disabled] {
   color: rgba(0, 0, 0, 0.26);
   cursor: not-allowed;
-  background-color: transparent;
+  background-color: #f8bbd0;
 }
 
 .md-fab {

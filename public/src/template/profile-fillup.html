@@ -1,0 +1,144 @@
+<style>
+
+    body {background-color:white;}
+    label {color:#555459; font-weight:bold; font-family:'Roboto';}
+    p {color:#555459; font-weight:bold; font-family:'Roboto';}
+    img {padding:45px 0px 0px 48px; z-index:1;}
+
+    .fixed {position:fixed; bottom:0; right:0; left:0; background-color:#F7F7F7; padding:10px 10px 10px 0px;}
+    .row {margin-left:200px; margin-top:50px; margin-right:90px; margin-bottom:100px;}
+    .box-row {margin: 0 auto;}
+    .i-24 {vertical-align:-36%;}
+
+    #user-image {cursor:pointer; display:inline-block; height:192px; width:192px; position:relative; background-image:url("src/images/app.jpg"); background-size:cover;}
+    #user-image:hover {border:.25rem solid #2D9EE0; border-radius:.2rem; position:absolute; opacity:0.1; background-color:black;}
+    #save {text-transform:capitalize; color:white; font-weight:bold; font-family:'Roboto'; background-color:#2ab27b; float:right;}
+    #cancel {text-transform:capitalize; color:#555459; font-weight:bold; font-family:'Roboto'; float:right;}
+    #nav-bar {background-color:white;}
+    #clear {color:#555459; font-size: 36px; margin-top: 5px;}
+    #clear:hover {color:#2ab27b;}
+    #title {color:#2C2D30; margin-left:500px; font-family:'Roboto'; font-weight:bold;}
+    #radius-corner {border-radius:0.25rem 0.25rem 0.25rem 0.25rem; height:45px;}
+    #calendar {margin-left:-15px;}
+    @media (max-width:900px) and (min-width:100px) {
+        #title {color:#2C2D30; margin-left:0px; font-family:'Roboto'; font-weight:bold;}
+        .row {margin-left:0px; margin-top:0px; margin-right:0px; margin-bottom:50px;}
+    }   ​
+
+</style>
+
+<div class="box">
+  <!-- Content Navbar -->
+  <div class="navbar md-whiteframe-z1 no-radius" ng-class="$state.current.data.theme ? $state.current.data.theme.primary : app.setting.theme.primary" id="nav-bar">
+
+    <!-- Page title - Bind to $state's title -->
+    <div class="navbar-item pull-left h4 ng-binding"><h3 id="title">Edit your profile</h3></div>
+
+    <!-- Common tools -->
+    <ul class="nav nav-sm navbar-tool pull-right" ng-hide="$state.current.data.child">
+      <li>
+        <a md-ink-ripple ng-click="app.search.show = true">
+
+        </a>
+      </li>
+      <li>
+        <a md-ink-ripple data-toggle="modal" data-target="#user">
+            <i class="mdi-content-clear i-24" id="clear"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Content -->
+  <div class="box-row">
+    <div class="box-cell">
+      <div class="box-inner padding" ui-view id="view" ng-controller="ProfileController as profileCtrl">
+          <div class="row">
+             <div class="col-md-8">
+                 <div class="panel panel-default">
+                   <div class="panel-heading bg-white"></div>
+                       <div class="panel-body">
+                           <form role="form">
+
+                               <div class="form-group">
+                                   <label for="first">First name</label>
+                                    <input type="text" class="form-control" placeholder="First name" id="radius-corner">
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="last">Last name</label>
+                                   <input type="text" class="form-control" placeholder="Last name" id="radius-corner">
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="phone">Phone number</label>
+                                   <input type="number" class="form-control" placeholder="Phone number" id="radius-corner">
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="phone">Email</label>
+                                   <input type="number" class="form-control" placeholder="Email" id="radius-corner" disabled>
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="country">Country</label>
+                                   <md-autocomplete class="autocomplete"
+                                        ng-disabled="profileCtrl.isDisabled"
+                                        md-no-cache="profileCtrl.noCache"
+                                        md-selected-item="profileCtrl.selectedItem"
+                                        md-search-text-change="profileCtrl.searchTextChange(profileCtrl.searchText)"
+                                        md-search-text="profileCtrl.searchText"
+                                        md-selected-item-change="profileCtrl.selectedItemChange(item)"
+                                        md-items="item in profileCtrl.querySearch(profileCtrl.searchText)"
+                                        md-item-text="item.display"
+                                        md-min-length="0"
+                                        placeholder="What is your country name? ">
+                                        <md-item-template>
+                                            <span md-highlight-text="profileCtrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                                        </md-item-template>
+                                        <md-not-found>
+                                            No states matching "{{profileCtrl.searchText}}" were found.
+                                            <a ng-click="profileCtrl.newState(profileCtrl.searchText)">Create a new one!</a>
+                                        </md-not-found>
+                                    </md-autocomplete>
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="gender">Gender</label>
+                                   <md-radio-group ng-model="data.group1">
+                                       <md-radio-button value="Male" class="md-primary">Male</md-radio-button>
+                                       <md-radio-button value="Female">Female</md-radio-button>
+                                   </md-radio-group>
+                               </div>
+
+                               <div class="form-group">
+                                   <label for="birthday">Birthday</label>
+                                   <br>
+                                   <md-datepicker ng-model="profileCtrl.submissionDate" id="calendar"></md-datepicker>
+                               </div>
+                           </form>
+                       </div>
+                 </div>
+             </div>
+
+             <div class="col-md-3">
+                 <div class="form-group">
+                     <p>Profile photo</p>
+                     <div id="user-image" ng-mouseover="profileCtrl.imageShow()" ng-mouseleave="profileCtrl.imageHide()" ng-click="profileCtrl.openUploader()"></div>
+                     <div id="image" ng-hide="profileCtrl.hide" ng-click="profileCtrl.openUploader()">
+                         <img ng-src='src/images/camera_black2.png' alt="Description"/>
+                     </div>
+                     <input type="file" name="file" multiple id="upload" ng-hide="true" ng-files="profileCtrl.getTheFiles($files)" accept=".png,.jpg,.tif" />
+                 </div>
+             </div>
+          </div>
+          <div class="row">
+              <div class="fixed">
+                  <md-button class="md-raised btn-fw m-b-sm" id="save">Save Changes</md-button>
+                  <md-button class="md-raised btn-fw m-b-sm" id="cancel">Cancel</md-button>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
